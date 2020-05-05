@@ -1,0 +1,19 @@
+//AUTH
+export const AUTH_START = "AUTH_START";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";
+export const GET_USER = "GET_USER";
+export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
+
+//JOBS
+export const JOB_SCRAPING_START = "JOB_SCRAPING_START";
+export const JOB_SCRAPING_SUCCESS = "JOB_SCRAPING_SUCCESS";
+export const JOB_SCRAPING_FAIL = "JOB_SCRAPING_FAIL";
+
+export const GET_JOB_START = "GET_JOB_START";
+export const GET_JOB_SUCCESS = "GET_JOB_SUCCESS";
+export const GET_JOB_FAIL = "GET_JOB_FAIL";
+
+//MODAL
+export const MODAL_RESET = "MODAL_RESET";
