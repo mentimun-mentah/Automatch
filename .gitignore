@@ -44,3 +44,11 @@ yarn-error.log*
 *.pyc
 # pytest cache
 .pytest_cache
+
+# ignore vue
+automatch-vue/
+
+# ignore for backend
+env
+migrations
+redis-5.0.8
