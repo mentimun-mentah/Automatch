@@ -1,4 +1,4 @@
-## Automatch Frontend
+## Automatch frontend
 First, run the development server:
 
 ```bash
