@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { authLogin, authRegister } from \"./auth\";","map":{"version":3,"sources":["/Users/paulus/Desktop/automatch/store/actions/index.js"],"names":["authLogin","authRegister"],"mappings":"AAAA,SAASA,SAAT,EAAoBC,YAApB,QAAwC,QAAxC","sourcesContent":["export { authLogin, authRegister } from \"./auth\";\n"]},"metadata":{},"sourceType":"module"}
