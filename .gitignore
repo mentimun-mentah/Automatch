@@ -44,3 +44,6 @@ yarn-error.log*
 *.pyc
 # pytest cache
 .pytest_cache
+
+# ignore vue
+automatch-vue/
