@@ -1,0 +1,25 @@
+.navbar_default {
+  transition:500ms ease;
+  background:#021927;
+}
+.navbar_default .nav_link{
+  color: white !important;
+}
+.navbar_scrolled{
+  transition:500ms ease;
+  background:white;
+  box-shadow: rgb(76, 76, 76) 0px 1px 2px;
+}
+.navbar_scrolled .nav_link{
+  color: black !important;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Yeseva+One&display=swap');
+
+.ff_yeseva{
+  font-family: 'Yeseva One';
+}
+
+.hov_pointer{
+    cursor: pointer;
+}
