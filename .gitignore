@@ -47,3 +47,8 @@ yarn-error.log*
 
 # ignore vue
 automatch-vue/
+
+# ignore for backend
+env
+migrations
+redis-5.0.8
