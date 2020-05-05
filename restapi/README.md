@@ -1,10 +1,10 @@
-## Install all package python
+## Setup Environment
 ```
+python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
 ## Install redis 5.0.8 to run service
-Make sure to delete folder redis in this folder
 ```
 wget http://download.redis.io/releases/redis-5.0.8.tar.gz
 tar xzf redis-5.0.8.tar.gz
