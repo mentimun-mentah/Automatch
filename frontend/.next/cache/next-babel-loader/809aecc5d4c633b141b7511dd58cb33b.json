@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { authCheckState } from \"./auth\";","map":{"version":3,"sources":["/Users/paulus/Desktop/automatch/store/actions/index.js"],"names":["authCheckState"],"mappings":"AAAA,SAASA,cAAT,QAA+B,QAA/B","sourcesContent":["export { authCheckState } from \"./auth\";\n"]},"metadata":{},"sourceType":"module"}
