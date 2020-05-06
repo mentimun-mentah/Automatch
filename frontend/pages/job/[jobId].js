@@ -1,13 +1,27 @@
-import { useEffect } from "react";
+import { useState, useCallback } from "react";
 import { withAuth } from "../../hoc/withAuth";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../store/actions";
 import axios from "../../store/axios-instance";
 import cookie from "nookies";
+import swal from "sweetalert";
+import validator from "validator";
 import DetailJob from "../../components/DetailJob/DetailJob";
+import Candidates from "../../components/DetailJob/Candidates/Candidates";
+import DataCandidates from "../../components/DetailJob/Candidates/DataCandidates";
+import EmptyCandidate from "../../components/DetailJob/Candidates/EmptyCandidate";
+import Profile from "../../components/DetailJob/Candidates/Profile";
+import ScaleLoader from "../../components/Transition/Spinner/ScaleLoader";
 
-const Detail = ({ children }) => {
+const Detail = () => {
+  const dispatch = useDispatch();
+  const [linkApplicant, setLinkApplicant] = useState("");
+  const [changeView, setChangeView] = useState(false);
+  const [validLink, setValidLink] = useState(true);
+
+  const loading = useSelector((state) => state.applicants.loading);
+  const profile = useSelector((state) => state.applicants.getApplicant);
   const jobData = useSelector((state) => state.jobs.jobData);
   const {
     id,
@@ -22,20 +36,146 @@ const Detail = ({ children }) => {
     applicants,
   } = jobData;
 
-  return (
-    <DetailJob
-      jobId={id}
-      image={image}
-      title_job={title_job}
-      company={company}
-      location={location}
-      posted={posted}
-      contents={contents}
-      concepts={concepts}
-      keywords={keywords}
+  const onScrapingApplicants = useCallback(
+    (url, jobId) => dispatch(actions.applicantScraping(url, jobId)),
+    [dispatch]
+  ); // Scraping
+
+  const onGetApplicant = useCallback(
+    (id) => dispatch(actions.getApplicant(id)),
+    [dispatch]
+  ); //View Profile
+
+  const onDeleteApplicant = useCallback(
+    (id_app, jobId) => dispatch(actions.deleteApplicant(id_app, jobId)),
+    [dispatch]
+  ); //Delete applicant
+
+  //Scraping
+  const linkChangeHandler = (event) => {
+    if (event.charCode === 32) {
+      setValidLink(false);
+      event.preventDefault();
+      return false;
+    } else {
+      setLinkApplicant(event.target.value);
+      setValidLink(true);
+    }
+  };
+  const applicantScrapingHandler = (event) => {
+    event.preventDefault();
+    if (linkIsValid()) {
+      let data = linkApplicant.split(" ").join("");
+      data = linkApplicant.split("\n");
+      onScrapingApplicants(data, id);
+      setLinkApplicant("");
+    }
+  };
+  //Scraping
+
+  const linkIsValid = () => {
+    const link = linkApplicant;
+    let isGood = true;
+    if (validator.isEmpty(link, { ignore_whitespace: true })) {
+      isGood = false;
+      swal({
+        title: "Link can't be empty",
+        icon: "warning",
+        button: true,
+        dangerMode: true,
+      });
+    }
+    if (!isGood) {
+      setLinkApplicant(link);
+    }
+    return isGood;
+  };
+
+  const changeViewHandler = useCallback(
+    (id) => {
+      setChangeView(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      onGetApplicant(id);
+    },
+    [changeView, onGetApplicant]
+  );
+
+  const viewCandidatesHandler = useCallback(() => {
+    setChangeView(false);
+  }, [changeView]);
+
+  const deleteApplicantHandler = (id_app, jobId) => {
+    onDeleteApplicant(id_app, jobId);
+  };
+
+  let dataCandidate = <EmptyCandidate />;
+  if (applicants.length > 0) {
+    dataCandidate = applicants.map((applicant, i) => (
+      <DataCandidates
+        key={i}
+        no={+i}
+        id={applicant.id}
+        name={applicant.name}
+        url={applicant.url}
+        score={applicant.score}
+        view={() => changeViewHandler(applicant.id)}
+        deleteApplicant={() => deleteApplicantHandler(applicant.id, id)}
+      />
+    ));
+  }
+
+  let candidates = (
+    <Candidates
+      submit={applicantScrapingHandler}
+      change={linkChangeHandler}
+      value={linkApplicant}
+      validLink={validLink}
     >
-      {children}
-    </DetailJob>
+      {dataCandidate}
+    </Candidates>
+  );
+
+  if (profile) {
+    if (changeView) {
+      candidates = (
+        <Profile
+          back={viewCandidatesHandler}
+          image={profile.image}
+          name={profile.name}
+          languages={profile.languages}
+          current_job={profile.current_job}
+          experiences={profile.experiences}
+          educations={profile.educations}
+          licenses={profile.licenses}
+          skills={profile.skills}
+          honors={profile.honors}
+        />
+      );
+    }
+  }
+
+  let loadingScrape = null;
+  if (loading) {
+    loadingScrape = <ScaleLoader />;
+  }
+
+  return (
+    <>
+      {loadingScrape}
+      <DetailJob
+        jobId={id}
+        image={image}
+        title_job={title_job}
+        company={company}
+        location={location}
+        posted={posted}
+        contents={contents}
+        concepts={concepts}
+        keywords={keywords}
+      >
+        <div key={changeView}>{candidates}</div>
+      </DetailJob>
+    </>
   );
 };
 

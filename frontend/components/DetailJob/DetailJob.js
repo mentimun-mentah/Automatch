@@ -1,12 +1,13 @@
 import { useEffect } from "react";
+import { isAuth } from "../../hoc/withAuth";
 import { Row, Col, Badge, Image } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { Fade } from "../Transition";
-import BadgePlaceholder from "../Transition/Spinner/BadgePlaceholder";
-import { isAuth } from "../../hoc/withAuth";
-import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../store/actions";
+import BadgePlaceholder from "../Transition/Spinner/BadgePlaceholder";
+import parse from "html-react-parser";
 
 const DetailJob = ({
   jobId,
@@ -19,6 +20,7 @@ const DetailJob = ({
   concepts,
   keywords,
   access_token,
+  children,
 }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.jobs.loading);
@@ -32,7 +34,6 @@ const DetailJob = ({
     if (concepts === null || keywords === null) {
       onGetCk(jobId, isAuth());
     }
-    console.log(isAuth());
   }, []);
 
   const renderConcepts = () => {
@@ -87,13 +88,7 @@ const DetailJob = ({
                 <i className="fal fa-times-circle mr-1"></i>Delete job
               </button>
             </div>
-            <div
-              className="job-content mt-4"
-              dangerouslySetInnerHTML={{ __html: contents }}
-            />
-            {/*
             <div className="job-content mt-4">{parse(contents)}</div>
-            */}
             <h5 className="mt-4">Concepts</h5>
             {badgeLoading}
             {renderConcepts()}
@@ -102,7 +97,11 @@ const DetailJob = ({
             {badgeLoading}
             {renderKeywords()}
           </Col>
-          <Col lg={6}></Col>
+          <Col lg={6}>
+            <AnimatePresence exitBeforeEnter initial={false}>
+              {children}
+            </AnimatePresence>
+          </Col>
         </Row>
       </section>
       <style jsx>{`

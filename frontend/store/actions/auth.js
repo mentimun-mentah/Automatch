@@ -38,9 +38,7 @@ export const getUserSuccess = (user) => {
 
 export const getUser = (access_token) => {
   return (dispatch) => {
-    const headerCfg = {
-      headers: { Authorization: `Bearer ${access_token}` },
-    };
+    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     if (access_token) {
       axios
         .get("/user", headerCfg)
@@ -55,12 +53,16 @@ export const getUser = (access_token) => {
               title: "Uuppsss!",
               text: "Invalid user credential, please re-login!",
               icon: "error",
-            }).then((yes) => {
-              if (yes) {
-                dispatch(logout());
-                Router.reload("/");
-              }
-            });
+            })
+              .then((yes) => {
+                if (yes) {
+                  dispatch(logout());
+                  Router.reload("/");
+                }
+              })
+              .catch((err) => {
+                console.log("error get user ==> ", err.response);
+              });
           }
         });
     }
