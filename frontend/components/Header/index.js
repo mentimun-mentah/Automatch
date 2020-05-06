@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { parseCookies, destroyCookie } from "nookies";
 
 import * as actions from "../../store/actions";
-import axios from "../../store/axios-instance";
 import Link from "next/link";
 import Signup from "./Signup";
 import Signin from "./Signin";
@@ -28,7 +27,7 @@ const Header = React.memo(() => {
   const [tkn, setTkn] = useState();
 
   const onLogout = () => dispatch(actions.logout());
-  const onGetUser = () => dispatch(actions.getUser());
+  const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
 
   const user = useSelector((state) => state.auth.user);
 
@@ -36,7 +35,7 @@ const Header = React.memo(() => {
     const { access_token } = parseCookies();
     setTkn(access_token);
     if (access_token) {
-      onGetUser();
+      onGetUser(access_token);
     }
   }, [tkn]);
 
@@ -98,7 +97,7 @@ const Header = React.memo(() => {
             width="40"
             height="40"
             className="rounded-circle"
-            alt="avatar"
+            alt=""
             style={{ objectFit: "cover" }}
           />
         }

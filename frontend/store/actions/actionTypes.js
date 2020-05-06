@@ -15,5 +15,13 @@ export const GET_JOB_START = "GET_JOB_START";
 export const GET_JOB_SUCCESS = "GET_JOB_SUCCESS";
 export const GET_JOB_FAIL = "GET_JOB_FAIL";
 
+export const DELETE_JOB_START = "DELETE_JOB_START";
+export const DELETE_JOB_SUCCESS = "DELETE_JOB_SUCCESS";
+export const DELETE_JOB_FAIL = "DELETE_JOB_FAIL";
+
+export const GET_CK_START = "GET_CK_START";
+export const GET_CK_SUCCESS = "GET_CK_SUCCESS";
+export const GET_CK_FAIL = "GET_CK_FAIL";
+
 //MODAL
 export const MODAL_RESET = "MODAL_RESET";

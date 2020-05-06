@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { withAuth } from "../../hoc/withAuth";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../store/actions";
 import Router from "next/router";
@@ -92,16 +92,16 @@ const JobsContainer = () => {
     jobCard = (
       <div className="row row-cols-5">
         {jobs.jobs.map((job, i) => {
-          const { image, company, location, title_job, posted, id } = job;
+          const { id, image, company, location, title_job, posted } = job;
           return (
             <JobCard
               key={i}
+              jobId={id}
               image={image}
               company={company}
               location={location}
               title_job={title_job}
               posted={posted}
-              id={id}
             />
           );
         })}

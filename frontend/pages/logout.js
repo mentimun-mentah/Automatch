@@ -3,7 +3,7 @@ import cookies from "nookies";
 
 const logout = () => null;
 
-logout.getInitialProps = (ctx = {}) => {
+logout.getInitialProps = (ctx) => {
   cookies.destroy(ctx, "access_token");
   cookies.destroy(ctx, "refresh_token");
 

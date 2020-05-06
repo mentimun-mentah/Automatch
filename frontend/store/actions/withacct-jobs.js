@@ -46,7 +46,7 @@ export const deleteJobStart = () => {
   return { type: actionType.DELETE_JOB_START };
 };
 export const deleteJobSuccess = () => {
-  return { type: actionType.DELETE_JOB_SUCCESS };
+  return { type: actionType.GET_JOB_SUCCESS };
 };
 export const deleteJobFail = () => {
   return { type: actionType.DELETE_JOB_FAIL };
@@ -104,11 +104,10 @@ export const jobScraping = (url_job, ctx) => {
   };
 };
 
-export const getJob = (jobId, ctx) => {
+export const getJob = (jobId, access_token) => {
   return (dispatch) => {
     dispatch(getUser());
     dispatch(getJobStart());
-    const { access_token } = cookie.get(ctx);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     axios
       .get(`/job/${jobId}`, headerCfg)
@@ -121,10 +120,9 @@ export const getJob = (jobId, ctx) => {
   };
 };
 
-export const getCk = (jobId, ctx) => {
+export const getCk = (jobId, access_token) => {
   return (dispatch) => {
     dispatch(getCkStart());
-    const { access_token } = cookie.get(ctx);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     axios
       .get(`/concept-keyword-job/${jobId}`, headerCfg)
@@ -139,41 +137,3 @@ export const getCk = (jobId, ctx) => {
   };
 };
 
-export const deleteJob = (jobId, ctx) => {
-  return (dispatch) => {
-    const { access_token } = cookie.get(ctx);
-    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
-    swal({
-      title: "Are you sure?!",
-      text: "This will delete your job data and all the candidates.",
-      icon: "warning",
-      buttons: ["Cancel", "Delete"],
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-          dispatch(deleteJobStart());
-          axios
-            .delete(`/delete-job/${jobId}`, headerCfg)
-            .then((res) => {
-              Router.push("/jobs", "/jobs");
-              dispatch(deleteJobSuccess());
-              swal({
-                title: "Yuhuu!",
-                text: res.data.message,
-                icon: "success",
-                timer: 3000,
-              });
-            })
-            .catch((error) => {
-              dispatch(deleteJobFail());
-              console.log("deleteJobFail => ", error.response);
-            });
-        }
-      })
-      .catch((error) => {
-        dispatch(deleteJobFail());
-        console.log("deleteJobFail => ", error.response);
-      });
-  };
-};

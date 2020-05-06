@@ -36,30 +36,34 @@ export const getUserSuccess = (user) => {
   };
 };
 
-export const getUser = (ctx) => {
+export const getUser = (access_token) => {
   return (dispatch) => {
-    const { access_token } = cookie.get(ctx);
     const headerCfg = {
       headers: { Authorization: `Bearer ${access_token}` },
     };
-    axios
-      .get("/user", headerCfg)
-      .then((res) => {
-        dispatch(getUserSuccess(res.data));
-      })
-      .catch((err) => {
-        if (err.response.status === 422) {
-          cookie.destroy(ctx, "access_token");
-          cookie.destroy(ctx, "refresh_token");
-          dispatch(authlogout());
-          swal({
-            title: "Uuppsss!",
-            text: "Invalid user credential, please re-login!",
-            icon: "error",
-          });
-          Router.reload("/");
-        }
-      });
+    if (access_token) {
+      axios
+        .get("/user", headerCfg)
+        .then((res) => {
+          dispatch(getUserSuccess(res.data));
+        })
+        .catch((err) => {
+          if (err.response.status === 422 || err.response.status === 401) {
+            cookie.destroy(null, "access_token");
+            cookie.destroy(null, "refresh_token");
+            swal({
+              title: "Uuppsss!",
+              text: "Invalid user credential, please re-login!",
+              icon: "error",
+            }).then((yes) => {
+              if (yes) {
+                dispatch(logout());
+                Router.reload("/");
+              }
+            });
+          }
+        });
+    }
   };
 };
 
@@ -69,10 +73,17 @@ export const logout = (ctx) => {
     const headerCfg = {
       headers: { Authorization: `Bearer ${access_token}` },
     };
-    axios.delete("/logout", headerCfg).then(() => {
-      dispatch(authlogout());
-      Router.reload("/");
-    });
+    if (access_token) {
+      axios
+        .delete("/logout", headerCfg)
+        .then(() => {
+          dispatch(authlogout());
+          Router.reload("/");
+        })
+        .catch((err) => {
+          console.log("logout error", err.response);
+        });
+    }
   };
 };
 
@@ -93,7 +104,7 @@ export const refreshToken = (refresh_token, ctx) => {
           dispatch(refreshTokenSuccess(res.data.access_token));
         })
         .catch((error) => {
-          console.log(error.response);
+          console.log("refreshToken ===> ", error.response);
         });
     }
   };

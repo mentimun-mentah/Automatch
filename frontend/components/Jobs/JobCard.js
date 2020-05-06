@@ -3,7 +3,7 @@ import { Fade } from "../Transition";
 
 import Link from "next/link";
 
-const JobCard = ({ image, company, location, title_job, posted, id }) => {
+const JobCard = ({ image, company, location, title_job, posted, jobId }) => {
   return (
     <motion.div
       className="col"
@@ -31,7 +31,7 @@ const JobCard = ({ image, company, location, title_job, posted, id }) => {
             <span>{title_job}</span>
           </p>
           <p className="card-text text-muted">{posted}</p>
-          <Link href="/job/[jobId]" as={`/job/${id}`}>
+          <Link href="/job/[jobId]" as={`/job/${jobId}`}>
             <a className="btn btn-hover btn-seconddark rounded-pill">Process</a>
           </Link>
         </div>
