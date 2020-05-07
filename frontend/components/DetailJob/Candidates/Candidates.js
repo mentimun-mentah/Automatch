@@ -8,9 +8,18 @@ import * as actions from "../../../store/actions";
 import DefaulCalculation from "./ModalCalculation/Default";
 import CustomCalculation from "./ModalCalculation/Custom";
 
-const Candidates = ({ submit, change, value, children, validLink }) => {
+const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   const [customView, setCustomView] = useState(false);
+
+  const modal = useSelector((state) => state.applicants.modal);
+
+  const onGetScoreApplicant = useCallback(
+    (jobId) => dispatch(actions.getScoreApplicant(jobId)),
+    [dispatch]
+  ); // GET SCORE APPLICANT
+
   const showModalHandler = () => {
     document.body.classList.add("modal-open");
     setModalShow(true);
@@ -27,6 +36,9 @@ const Candidates = ({ submit, change, value, children, validLink }) => {
   };
 
   const calculateHandler = (jobId) => {
+    if (!customView) {
+      onGetScoreApplicant(jobId);
+    }
     document.body.classList.remove("modal-open");
     setModalShow(false);
     setCustomView(false);
@@ -35,7 +47,12 @@ const Candidates = ({ submit, change, value, children, validLink }) => {
   const defaultModal = () => {
     document.body.classList.remove("modal-open");
     setModalShow(false);
+    dispatch(actions.modalReset());
   };
+
+  if (modal === false) {
+    defaultModal();
+  }
 
   return (
     <motion.div
@@ -152,7 +169,10 @@ const Candidates = ({ submit, change, value, children, validLink }) => {
                     {customView ? (
                       <CustomCalculation back={customCalcHandler} />
                     ) : (
-                      <DefaulCalculation viewCustomCalc={customCalcHandler} />
+                      <DefaulCalculation
+                        viewCustomCalc={customCalcHandler}
+                        calculate={() => calculateHandler(jobId)}
+                      />
                     )}
                   </AnimatePresence>
                 </Modal.Body>

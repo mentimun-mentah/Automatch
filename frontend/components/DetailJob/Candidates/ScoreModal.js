@@ -32,6 +32,7 @@ const ScoreModal = ({ closeModal, score }) => {
             </span>
             <ProgressBar
               animated
+              max={20}
               now={current_position}
               label={current_position + "%"}
               className="h-20px mt-2 mb-2"
@@ -43,6 +44,7 @@ const ScoreModal = ({ closeModal, score }) => {
             </span>
             <ProgressBar
               animated
+              max={25}
               now={experience}
               label={experience + "%"}
               className="h-20px mt-2 mb-2"
@@ -54,6 +56,7 @@ const ScoreModal = ({ closeModal, score }) => {
             </span>
             <ProgressBar
               animated
+              max={20}
               now={skill}
               label={skill + "%"}
               className="h-20px mt-2 mb-2"
@@ -65,6 +68,7 @@ const ScoreModal = ({ closeModal, score }) => {
             </span>
             <ProgressBar
               animated
+              max={15}
               now={education}
               label={education + "%"}
               className="h-20px mt-2 mb-2"
@@ -76,6 +80,7 @@ const ScoreModal = ({ closeModal, score }) => {
             </span>
             <ProgressBar
               animated
+              max={10}
               now={honor}
               label={honor + "%"}
               className="h-20px mt-2 mb-2"
@@ -87,6 +92,7 @@ const ScoreModal = ({ closeModal, score }) => {
             </span>
             <ProgressBar
               animated
+              max={10}
               now={license}
               label={license + "%"}
               className="h-20px mt-2 mb-2"

@@ -131,6 +131,7 @@ const Detail = () => {
       change={linkChangeHandler}
       value={linkApplicant}
       validLink={validLink}
+      jobId={id}
     >
       {dataCandidate}
     </Candidates>

@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, ProgressBar, Modal } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zoom, BackdropModal, Fade } from "../../Transition";
+import PropagateLoader from "../../Transition/Spinner/PropagateLoader";
 import ScoreModal from "./ScoreModal";
 
 const DataCandidate = ({
@@ -15,6 +17,7 @@ const DataCandidate = ({
   detailScore,
 }) => {
   const [modalShow, setShowModal] = useState(false);
+  const loading = useSelector((state) => state.applicants.loadingScore);
 
   const scoreModalHandler = () => {
     if (modalShow) {
@@ -27,6 +30,9 @@ const DataCandidate = ({
   };
 
   let scoreApplicant = <span>Not calculated yet</span>;
+  if (loading && score <= 0) {
+    scoreApplicant = <PropagateLoader />;
+  }
   {
     if (score > 0) {
       scoreApplicant = (

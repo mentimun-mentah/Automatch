@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   modal: true,
   error: null,
+  loadingScore: false,
 };
 
 /***SCRAPPING APPLICANT***/
@@ -38,7 +39,7 @@ const getApplicantFail = (state, action) => {
 
 /***DELETE APPLICANT***/
 const deleteApplicantStart = (state, action) => {
-  return updateObject(state, { loading: true });
+  return updateObject(state, { loading: true, error: null });
 };
 const deleteApplicantSuccess = (state, action) => {
   return updateObject(state, { loading: false });
@@ -50,15 +51,24 @@ const deleteApplicantFail = (state, action) => {
 
 /***GET SCORE APPLICANT***/
 const getScoreApplicantStart = (state, action) => {
-  return updateObject(state, { loading: true, error: null });
+  return updateObject(state, { loadingScore: true, error: null, modal: true });
 };
 const getScoreApplicantSuccess = (state, action) => {
-  return updateObject(state, { loading: false });
+  return updateObject(state, { loadingScore: false, modal: false });
 };
 const getScoreApplicantFail = (state, action) => {
-  return updateObject(state, { loading: false, error: action.error });
+  return updateObject(state, {
+    loadingScore: false,
+    error: action.error,
+    modal: false,
+  });
 };
 /***GET SCORE APPLICANT***/
+
+/***MODAL RESET***/
+const modalReset = (state, action) => {
+  return updateObject(state, { modal: true });
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -93,6 +103,9 @@ const reducer = (state = initialState, action) => {
       return getScoreApplicantSuccess(state, action);
     case actionType.GETSCORE_APPLICANT_FAIL:
       return getScoreApplicantFail(state, action);
+
+    case actionType.MODAL_RESET:
+      return modalReset(state, action);
 
     default:
       return state;

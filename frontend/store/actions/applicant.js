@@ -52,6 +52,12 @@ export const getScoreApplicantFail = (error) => {
 };
 /***GET SCORE APPLICANT***/
 
+/***MODAL RESET***/
+export const modalReset = () => {
+  return { type: actionType.MODAL_RESET };
+};
+/***MODAL RESET***/
+
 export const applicantScraping = (url, jobId, ctx) => {
   return (dispatch) => {
     dispatch(getUser());
@@ -156,10 +162,12 @@ export const getScoreApplicant = (jobId, ctx) => {
         console.log("getScoreApplicantSuccess => ", res.data);
         dispatch(getScoreApplicantSuccess());
         dispatch(getJob(jobId));
+        dispatch(modalReset());
       })
       .catch((err) => {
         console.log("getScoreApplicantFail => ", err.response);
         dispatch(getScoreApplicantFail());
+        dispatch(modalReset());
       });
   };
 };

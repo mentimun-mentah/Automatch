@@ -5,4 +5,5 @@ export {
   getApplicant,
   deleteApplicant,
   getScoreApplicant,
+  modalReset,
 } from "./applicant";

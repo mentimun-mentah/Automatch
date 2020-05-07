@@ -1,8 +1,30 @@
+import { useState } from "react";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Fade } from "../../../Transition/index";
 
+const formScore = {
+  score_experience: { value: 25, isValid: true, message: "" },
+  score_education: { value: 15, isValid: true, message: "" },
+  score_honor: { value: 10, isValid: true, message: "" },
+  score_license: { value: 10, isValid: true, message: "" },
+  score_skill: { value: 20, isValid: true, message: "" },
+  score_current_position: { value: 20, isValid: true, message: "" },
+  priority_univ: { value: "", isValid: true, message: "" },
+};
+
 const customCalculation = ({ back }) => {
+  const [score, setScore] = useState(formScore);
+
+  const {
+    score_experience,
+    score_education,
+    score_honor,
+    score_license,
+    score_skill,
+    score_current_position,
+    priority_univ,
+  } = score;
   return (
     <motion.div initial="initial" animate="in" exit="out" variants={Fade}>
       <Container>
@@ -12,10 +34,26 @@ const customCalculation = ({ back }) => {
               <Form.Row>
                 <Form.Group as={Col} md="6">
                   <Form.Label>
+                    Current Possition
+                    <Form.Label className="text-danger">*</Form.Label>
+                  </Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="20%"
+                    value={score_current_position.value}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="6">
+                  <Form.Label>
                     Experience
                     <Form.Label className="text-danger">*</Form.Label>
                   </Form.Label>
-                  <Form.Control type="text" placeholder="35%" />
+                  <Form.Control
+                    type="number"
+                    placeholder="25%"
+                    value={score_experience.value}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} md="6">
@@ -23,7 +61,23 @@ const customCalculation = ({ back }) => {
                     Skills
                     <Form.Label className="text-danger">*</Form.Label>
                   </Form.Label>
-                  <Form.Control type="text" placeholder="30%" />
+                  <Form.Control
+                    type="number"
+                    placeholder="10%"
+                    value={score_skill.value}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="6">
+                  <Form.Label>
+                    Education
+                    <Form.Label className="text-danger">*</Form.Label>
+                  </Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="15%"
+                    value={score_education.value}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} md="6">
@@ -31,7 +85,11 @@ const customCalculation = ({ back }) => {
                     Accomplishments
                     <Form.Label className="text-danger">*</Form.Label>
                   </Form.Label>
-                  <Form.Control type="text" placeholder="10%" />
+                  <Form.Control
+                    type="number"
+                    placeholder="10%"
+                    value={score_honor.value}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} md="6">
@@ -39,17 +97,13 @@ const customCalculation = ({ back }) => {
                     Licenses
                     <Form.Label className="text-danger">*</Form.Label>
                   </Form.Label>
-                  <Form.Control type="text" placeholder="10%" />
+                  <Form.Control
+                    type="number"
+                    placeholder="10%"
+                    value={score_license.value}
+                  />
                 </Form.Group>
               </Form.Row>
-
-              <Form.Group>
-                <Form.Label>
-                  Education
-                  <Form.Label className="text-danger">*</Form.Label>
-                </Form.Label>
-                <Form.Control type="text" placeholder="15%" />
-              </Form.Group>
 
               <Form.Group>
                 <Form.Label>
@@ -59,7 +113,11 @@ const customCalculation = ({ back }) => {
                     (optional)
                   </Form.Label>
                 </Form.Label>
-                <Form.Control type="text" placeholder="UI, UGM, ITB, ITS" />
+                <Form.Control
+                  type="text"
+                  placeholder="UI, UGM, ITB, ITS"
+                  value={priority_univ.value}
+                />
               </Form.Group>
             </Form>
           </Col>
