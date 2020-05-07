@@ -89,7 +89,7 @@ class UpdateScore(Resource):
         schema_score = OverallScoreSchema()
         data = request.get_json()
         args = schema_score.load(data)
-        count = sum([x for x in args.values() if x != ''])
+        count = sum([x for x in args.values() if type(x) != str])
         if count != 100:
             return {"message":"The calculation results must all be 100%"}, 400
         score.update_score(**args)
