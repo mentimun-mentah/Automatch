@@ -118,6 +118,7 @@ const Detail = () => {
         name={applicant.name}
         url={applicant.url}
         score={applicant.score}
+        detailScore={applicant.detail_score}
         view={() => changeViewHandler(applicant.id)}
         deleteApplicant={() => deleteApplicantHandler(applicant.id, id)}
       />

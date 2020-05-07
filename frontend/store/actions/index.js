@@ -1,3 +1,8 @@
 export { authCheckState, refreshToken, logout, getUser } from "./auth";
 export { jobScraping, getJob, getJobSuccess, getCk, deleteJob } from "./jobs";
-export { applicantScraping, getApplicant, deleteApplicant } from "./applicant";
+export {
+  applicantScraping,
+  getApplicant,
+  deleteApplicant,
+  getScoreApplicant,
+} from "./applicant";

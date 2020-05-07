@@ -4,11 +4,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Zoom, BackdropModal, Fade } from "../../Transition";
 import ScoreModal from "./ScoreModal";
 
-const DataCandidate = ({ no, id, name, url, score, view, deleteApplicant }) => {
+const DataCandidate = ({
+  no,
+  id,
+  name,
+  url,
+  score,
+  view,
+  deleteApplicant,
+  detailScore,
+}) => {
   const [modalShow, setShowModal] = useState(false);
 
   const scoreModalHandler = () => {
-    setShowModal(!modalShow);
+    if (modalShow) {
+      document.body.classList.remove("modal-open");
+      setShowModal(false);
+    } else {
+      document.body.classList.add("modal-open");
+      setShowModal(true);
+    }
   };
 
   let scoreApplicant = <span>Not calculated yet</span>;
@@ -70,7 +85,6 @@ const DataCandidate = ({ no, id, name, url, score, view, deleteApplicant }) => {
           </a>
         </td>
         <td>
-          {/*
           <AnimatePresence exitBeforeEnter key={modalShow}>
             {modalShow ? (
               <ScoreModal closeModal={scoreModalHandler} score={detailScore} />
@@ -87,7 +101,6 @@ const DataCandidate = ({ no, id, name, url, score, view, deleteApplicant }) => {
               />
             ) : null}
           </AnimatePresence>
-          */}
         </td>
       </motion.tr>
       <style jsx>{`

@@ -40,6 +40,18 @@ export const deleteApplicantFail = () => {
 };
 /***DELETE APPLICANT***/
 
+/***GET SCORE APPLICANT***/
+export const getScoreApplicantStart = () => {
+  return { type: actionType.GETSCORE_APPLICANT_START };
+};
+export const getScoreApplicantSuccess = () => {
+  return { type: actionType.GETSCORE_APPLICANT_SUCCESS };
+};
+export const getScoreApplicantFail = (error) => {
+  return { type: actionType.GETSCORE_APPLICANT_FAIL, error: error };
+};
+/***GET SCORE APPLICANT***/
+
 export const applicantScraping = (url, jobId, ctx) => {
   return (dispatch) => {
     dispatch(getUser());
@@ -129,5 +141,25 @@ export const deleteApplicant = (id, jobId, ctx) => {
       } else {
       }
     });
+  };
+};
+
+export const getScoreApplicant = (jobId, ctx) => {
+  return (dispatch) => {
+    dispatch(getUser());
+    dispatch(getScoreApplicantStart());
+    const { access_token } = cookie.get(ctx);
+    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
+    axios
+      .get(`/get-score/applicant/${jobId}`, headerCfg)
+      .then((res) => {
+        console.log("getScoreApplicantSuccess => ", res.data);
+        dispatch(getScoreApplicantSuccess());
+        dispatch(getJob(jobId));
+      })
+      .catch((err) => {
+        console.log("getScoreApplicantFail => ", err.response);
+        dispatch(getScoreApplicantFail());
+      });
   };
 };
