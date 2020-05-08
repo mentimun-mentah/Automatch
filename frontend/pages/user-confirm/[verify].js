@@ -1,3 +1,4 @@
+import Router from "next/router";
 import axios from "../../store/axios-instance";
 
 const verify = ({ verify }) => {
@@ -13,6 +14,7 @@ verify.getInitialProps = (ctx) => {
   axios
     .get(`/user-confirm/${verify}`)
     .then((res) => {
+      Router.reload("/");
       console.log(res.data);
     })
     .catch((err) => {
