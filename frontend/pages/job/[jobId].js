@@ -111,7 +111,11 @@ const Detail = () => {
 
   let dataCandidate = <EmptyCandidate />;
   if (applicants.length > 0) {
-    dataCandidate = applicants.map((applicant, i) => (
+    const sortScore = applicants.slice(0);
+    sortScore.sort((a, b) => {
+      return b.score - a.score;
+    });
+    dataCandidate = sortScore.map((applicant, i) => (
       <DataCandidates
         key={i}
         no={+i}
