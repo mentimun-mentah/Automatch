@@ -59,14 +59,9 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
       exit="out"
       variants={LeftToRight}
     >
-      <h2>Candidates : </h2>
-      <div className="row mb-3 mt-3">
+      <div className="row mb-3 mt-3 align-items-md-center">
         <div className="col">
-          <span>Show</span>
-          <select className="form-control-sm ml-2 mr-2">
-            <option>5</option>
-          </select>
-          <span>entries</span>
+          <h2>Candidates : </h2>
         </div>
         <div className="col">
           <div className="row">

@@ -14,8 +14,6 @@ const ScoreModal = React.memo(({ closeModal, score }) => {
     score_honor,
   } = scoreJob;
 
-  console.log(scoreJob);
-
   const {
     current_position,
     experience,

@@ -1,11 +1,18 @@
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Accordion, Card } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { LeftToRight } from "../../Transition";
+import { parseCookies } from "nookies";
+import * as actions from "../../../store/actions";
 import parse from "html-react-parser";
+import axios from "../../../store/axios-instance";
 import ArrowCard from "./ArrowCard";
+import swal from "sweetalert";
 
 const Profile = ({
   back,
+  id,
   image,
   name,
   languages,
@@ -15,12 +22,35 @@ const Profile = ({
   licenses,
   skills,
   honors,
+  qualify,
 }) => {
+  const dispatch = useDispatch();
   const lc = licenses.split(",");
   const hr = honors.split(",");
   const sk = skills.split(",");
   const lg = languages.split(",");
-  console.log(lg.length > 0 && lg[0] !== "");
+
+  const onGetApplicant = useCallback(
+    (id) => dispatch(actions.getApplicant(id)),
+    [dispatch]
+  ); //View Profile
+
+  const { access_token } = parseCookies();
+  const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
+
+  const qualifyHandler = (id) => {
+    axios
+      .put(`/applicant/qualify/${id}`, null, headerCfg)
+      .then((res) => {
+        onGetApplicant(id);
+        swal({ text: res.data.message, icon: "success" });
+      })
+      .catch((err) => {
+        onGetApplicant(id);
+        swal({ text: err.response.message, icon: "error" });
+      });
+    console.log(id);
+  };
 
   const CardExperience = experiences.map((data, i) => {
     return (
@@ -110,6 +140,14 @@ const Profile = ({
           </>
         )}
         {current_job && <p className="mt-1">{current_job}</p>}
+
+        <Button
+          variant={qualify ? "success" : "outline-success"}
+          className="badge-pill"
+          onClick={() => qualifyHandler(id)}
+        >
+          <i className="far fa-check-circle"></i> Qualify
+        </Button>
       </div>
 
       <div className="scrollable">

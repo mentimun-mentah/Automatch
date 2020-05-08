@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, ProgressBar, Modal } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zoom, BackdropModal, Fade } from "../../Transition";
-import PropagateLoader from "../../Transition/Spinner/PropagateLoader";
+import ReactTooltip from "react-tooltip";
 import ScoreModal from "./ScoreModal";
+import PropagateLoader from "../../Transition/Spinner/PropagateLoader";
 
 const DataCandidate = ({
   no,
@@ -15,6 +16,7 @@ const DataCandidate = ({
   view,
   deleteApplicant,
   detailScore,
+  qualify,
 }) => {
   const [modalShow, setShowModal] = useState(false);
   const loading = useSelector((state) => state.applicants.loadingScore);
@@ -47,6 +49,11 @@ const DataCandidate = ({
     }
   }
 
+  let nomor = no + 1;
+  if (qualify) {
+    nomor = <i className="fas fa-badge-check" style={{ color: "#405DE6" }}></i>;
+  }
+
   return (
     <>
       <motion.tr
@@ -57,7 +64,7 @@ const DataCandidate = ({
         variants={Fade}
         key={no}
       >
-        <th className="text-center align-middle">{no + 1}</th>
+        <th className="text-center align-middle">{nomor}</th>
         <td className="text-center align-middle truncate">{name}</td>
         <td className="text-center align-middle text-truncate">
           {scoreApplicant}
@@ -86,6 +93,7 @@ const DataCandidate = ({
             href={url}
             target="_blank"
             role="button"
+            data-tip="Linkedin Profile"
           >
             <i className="fab fa-linkedin" style={{ userSelect: "auto" }}></i>
           </a>
@@ -107,6 +115,7 @@ const DataCandidate = ({
               />
             ) : null}
           </AnimatePresence>
+          <ReactTooltip effect="float" uuid="mytt" />
         </td>
       </motion.tr>
       <style jsx>{`

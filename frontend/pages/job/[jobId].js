@@ -124,6 +124,7 @@ const Detail = () => {
         url={applicant.url}
         score={applicant.score}
         detailScore={applicant.detail_score}
+        qualify={applicant.qualify}
         view={() => changeViewHandler(applicant.id)}
         deleteApplicant={() => deleteApplicantHandler(applicant.id, id)}
       />
@@ -147,6 +148,7 @@ const Detail = () => {
       candidates = (
         <Profile
           back={viewCandidatesHandler}
+          id={profile.id}
           image={profile.image}
           name={profile.name}
           languages={profile.languages}
@@ -156,6 +158,7 @@ const Detail = () => {
           licenses={profile.licenses}
           skills={profile.skills}
           honors={profile.honors}
+          qualify={profile.qualify}
         />
       );
     }
