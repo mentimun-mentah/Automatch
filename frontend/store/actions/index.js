@@ -6,4 +6,5 @@ export {
   deleteApplicant,
   getScoreApplicant,
   modalReset,
+  qualifyApplicant,
 } from "./applicant";

@@ -51,6 +51,11 @@ const Detail = () => {
     [dispatch]
   ); //Delete applicant
 
+  const onQualifyApplicant = useCallback(
+    (id_app, jobId) => dispatch(actions.qualifyApplicant(id_app, jobId)),
+    [dispatch]
+  ); //Delete applicant
+
   //Scraping
   const linkChangeHandler = (event) => {
     if (event.charCode === 32) {
@@ -109,6 +114,13 @@ const Detail = () => {
     onDeleteApplicant(id_app, jobId);
   };
 
+  const qualifyHandler = useCallback(
+    (id, jobId) => {
+      onQualifyApplicant(id, jobId);
+    },
+    [onQualifyApplicant]
+  );
+
   let dataCandidate = <EmptyCandidate />;
   if (applicants.length > 0) {
     const sortScore = applicants.slice(0);
@@ -159,6 +171,7 @@ const Detail = () => {
           skills={profile.skills}
           honors={profile.honors}
           qualify={profile.qualify}
+          qualifyApplicant={() => qualifyHandler(profile.id, id)}
         />
       );
     }

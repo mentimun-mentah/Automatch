@@ -65,6 +65,18 @@ const getScoreApplicantFail = (state, action) => {
 };
 /***GET SCORE APPLICANT***/
 
+/***QUALIFY APPLICANT***/
+const qualifyApplicantStart = (state, action) => {
+  return updateObject(state, { loading: false, error: null });
+};
+const qualifyApplicantSuccess = (state, action) => {
+  return updateObject(state, { loading: false });
+};
+const qualifyApplicantFail = (state, action) => {
+  return updateObject(state, { loading: false });
+};
+/***QUALIFY APPLICANT***/
+
 /***MODAL RESET***/
 const modalReset = (state, action) => {
   return updateObject(state, { modal: true });
@@ -103,6 +115,14 @@ const reducer = (state = initialState, action) => {
       return getScoreApplicantSuccess(state, action);
     case actionType.GETSCORE_APPLICANT_FAIL:
       return getScoreApplicantFail(state, action);
+
+    /***QUALIFY APPLICANT***/
+    case actionType.QUALIFY_APPLICANT_START:
+      return qualifyApplicantStart(state, action);
+    case actionType.QUALIFY_APPLICANT_SUCCESS:
+      return qualifyApplicantFail(state, action);
+    case actionType.QUALIFY_APPLICANT_FAIL:
+      return qualifyApplicantFail(state, action);
 
     case actionType.MODAL_RESET:
       return modalReset(state, action);

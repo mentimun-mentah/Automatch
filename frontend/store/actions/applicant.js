@@ -184,8 +184,25 @@ export const getScoreApplicant = (jobId, ctx) => {
   };
 };
 
-export const qualifyApplicant = (id, ctx) => {
+export const qualifyApplicant = (id, jobId, ctx) => {
   return (dispatch) => {
     dispatch(getUser());
+    dispatch(qualifyApplicantStart());
+    const { access_token } = cookie.get(ctx);
+    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
+    axios
+      .put(`/applicant/qualify/${id}`, null, headerCfg)
+      .then((res) => {
+        dispatch(getApplicant(id));
+        dispatch(getJob(jobId));
+        dispatch(qualifyApplicantSuccess());
+        swal({ text: res.data.message, icon: "success" });
+      })
+      .catch((err) => {
+        dispatch(getApplicant(id));
+        dispatch(getJob(jobId));
+        dispatch(qualifyApplicantFail());
+        swal({ text: err.response.message, icon: "error" });
+      });
   };
 };
