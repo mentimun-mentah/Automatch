@@ -1,8 +1,19 @@
+import { useSelector } from "react-redux";
 import { Button, ButtonGroup, ProgressBar, Modal } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zoom } from "../../Transition";
 
-const ScoreModal = ({ closeModal, score }) => {
+const ScoreModal = React.memo(({ closeModal, score }) => {
+  const scoreJob = useSelector((state) => state.jobs.jobData.overall_score);
+  const {
+    score_education,
+    score_license,
+    score_skill,
+    score_experience,
+    score_current_position,
+    score_honor,
+  } = scoreJob;
+
   const {
     current_position,
     experience,
@@ -28,11 +39,13 @@ const ScoreModal = ({ closeModal, score }) => {
           <div className="modal-body">
             <span>
               Current Possition{" "}
-              <span className="font-italic text-danger fs-15">(20%)</span>
+              <span className="font-italic text-danger fs-15">
+                ({score_current_position}%)
+              </span>
             </span>
             <ProgressBar
               animated
-              max={20}
+              max={score_current_position}
               now={current_position}
               label={current_position + "%"}
               className="h-20px mt-2 mb-2"
@@ -40,11 +53,13 @@ const ScoreModal = ({ closeModal, score }) => {
 
             <span>
               Experience{" "}
-              <span className="font-italic text-danger fs-15">(25%)</span>
+              <span className="font-italic text-danger fs-15">
+                ({score_experience}%)
+              </span>
             </span>
             <ProgressBar
               animated
-              max={25}
+              max={score_experience}
               now={experience}
               label={experience + "%"}
               className="h-20px mt-2 mb-2"
@@ -52,7 +67,9 @@ const ScoreModal = ({ closeModal, score }) => {
 
             <span>
               Skills{" "}
-              <span className="font-italic text-danger fs-15">(20%)</span>
+              <span className="font-italic text-danger fs-15">
+                ({score_skill}%)
+              </span>
             </span>
             <ProgressBar
               animated
@@ -64,11 +81,13 @@ const ScoreModal = ({ closeModal, score }) => {
 
             <span>
               Education{" "}
-              <span className="font-italic text-danger fs-15">(15%)</span>
+              <span className="font-italic text-danger fs-15">
+                ({score_education}%)
+              </span>
             </span>
             <ProgressBar
               animated
-              max={15}
+              max={score_education}
               now={education}
               label={education + "%"}
               className="h-20px mt-2 mb-2"
@@ -76,11 +95,13 @@ const ScoreModal = ({ closeModal, score }) => {
 
             <span>
               Accomplishments{" "}
-              <span className="font-italic text-danger fs-15">(10%)</span>
+              <span className="font-italic text-danger fs-15">
+                ({score_honor}%)
+              </span>
             </span>
             <ProgressBar
               animated
-              max={10}
+              max={score_honor}
               now={honor}
               label={honor + "%"}
               className="h-20px mt-2 mb-2"
@@ -88,11 +109,13 @@ const ScoreModal = ({ closeModal, score }) => {
 
             <span>
               Licenses & Certifications{" "}
-              <span className="font-italic text-danger fs-15">(10%)</span>
+              <span className="font-italic text-danger fs-15">
+                ({score_license}%)
+              </span>
             </span>
             <ProgressBar
               animated
-              max={10}
+              max={score_license}
               now={license}
               label={license + "%"}
               className="h-20px mt-2 mb-2"
@@ -102,6 +125,6 @@ const ScoreModal = ({ closeModal, score }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default ScoreModal;

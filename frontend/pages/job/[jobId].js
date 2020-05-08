@@ -102,6 +102,7 @@ const Detail = () => {
 
   const viewCandidatesHandler = useCallback(() => {
     setChangeView(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [changeView]);
 
   const deleteApplicantHandler = (id_app, jobId) => {
@@ -110,7 +111,11 @@ const Detail = () => {
 
   let dataCandidate = <EmptyCandidate />;
   if (applicants.length > 0) {
-    dataCandidate = applicants.map((applicant, i) => (
+    const sortScore = applicants.slice(0);
+    sortScore.sort((a, b) => {
+      return b.score - a.score;
+    });
+    dataCandidate = sortScore.map((applicant, i) => (
       <DataCandidates
         key={i}
         no={+i}
@@ -119,6 +124,7 @@ const Detail = () => {
         url={applicant.url}
         score={applicant.score}
         detailScore={applicant.detail_score}
+        qualify={applicant.qualify}
         view={() => changeViewHandler(applicant.id)}
         deleteApplicant={() => deleteApplicantHandler(applicant.id, id)}
       />
@@ -142,6 +148,7 @@ const Detail = () => {
       candidates = (
         <Profile
           back={viewCandidatesHandler}
+          id={profile.id}
           image={profile.image}
           name={profile.name}
           languages={profile.languages}
@@ -151,6 +158,7 @@ const Detail = () => {
           licenses={profile.licenses}
           skills={profile.skills}
           honors={profile.honors}
+          qualify={profile.qualify}
         />
       );
     }

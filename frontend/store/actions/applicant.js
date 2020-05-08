@@ -52,6 +52,18 @@ export const getScoreApplicantFail = (error) => {
 };
 /***GET SCORE APPLICANT***/
 
+/***QUALIFIED APPLICANT***/
+export const qualifyApplicantStart = () => {
+  return { type: actionType.QUALIFY_APPLICANT_START };
+};
+export const qualifyApplicantSuccess = () => {
+  return { type: actionType.QUALIFY_APPLICANT_SUCCESS };
+};
+export const qualifyApplicantFail = () => {
+  return { type: actionType.QUALIFY_APPLICANT_FAIL };
+};
+/***QUALIFIED APPLICANT***/
+
 /***MODAL RESET***/
 export const modalReset = () => {
   return { type: actionType.MODAL_RESET };
@@ -169,5 +181,11 @@ export const getScoreApplicant = (jobId, ctx) => {
         dispatch(getScoreApplicantFail());
         dispatch(modalReset());
       });
+  };
+};
+
+export const qualifyApplicant = (id, ctx) => {
+  return (dispatch) => {
+    dispatch(getUser());
   };
 };
