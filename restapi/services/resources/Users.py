@@ -68,7 +68,9 @@ class ConfirmUser(Resource):
         if not confirmation.token_is_expired:
             confirmation.activated = True
             confirmation.save_to_db()
-            return {"message":f"Your email {confirmation.user.email} has been activated"},200
+            return {"message":f"Your email {confirmation.user.email} has been activated",
+                    "email": confirmation.user.email,
+                    "password": confirmation.user.password}, 200
         return {"message":"Upps token expired, you can resend email confirm again"}, 400
 
 class ResendEmail(Resource):
