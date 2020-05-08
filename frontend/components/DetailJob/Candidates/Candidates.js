@@ -36,9 +36,7 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   };
 
   const calculateHandler = (jobId) => {
-    if (!customView) {
-      onGetScoreApplicant(jobId);
-    }
+    onGetScoreApplicant(jobId);
     document.body.classList.remove("modal-open");
     setModalShow(false);
     setCustomView(false);
@@ -167,7 +165,11 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
                 <Modal.Body>
                   <AnimatePresence exitBeforeEnter key={customView}>
                     {customView ? (
-                      <CustomCalculation back={customCalcHandler} />
+                      <CustomCalculation
+                        back={customCalcHandler}
+                        calculate={calculateHandler}
+                        jobId={jobId}
+                      />
                     ) : (
                       <DefaulCalculation
                         viewCustomCalc={customCalcHandler}

@@ -48,7 +48,7 @@ const DataCandidate = ({
   }
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <>
       <motion.tr
         className="border-bottom"
         initial="initial"
@@ -91,7 +91,7 @@ const DataCandidate = ({
           </a>
         </td>
         <td>
-          <AnimatePresence exitBeforeEnter key={modalShow}>
+          <AnimatePresence key={id} exitBeforeEnter>
             {modalShow ? (
               <ScoreModal closeModal={scoreModalHandler} score={detailScore} />
             ) : null}
@@ -120,7 +120,7 @@ const DataCandidate = ({
           cursor: pointer;
         }
       `}</style>
-    </AnimatePresence>
+    </>
   );
 };
 

@@ -102,6 +102,7 @@ const Detail = () => {
 
   const viewCandidatesHandler = useCallback(() => {
     setChangeView(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [changeView]);
 
   const deleteApplicantHandler = (id_app, jobId) => {
