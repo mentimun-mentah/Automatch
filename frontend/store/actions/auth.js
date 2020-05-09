@@ -47,22 +47,16 @@ export const getUser = (access_token) => {
         })
         .catch((err) => {
           if (err.response.status === 422 || err.response.status === 401) {
+            console.log("error get user ==> ", err.response);
             cookie.destroy(null, "access_token");
             cookie.destroy(null, "refresh_token");
+            dispatch(logout());
+            Router.reload("/");
             swal({
               title: "Uuppsss!",
               text: "Invalid user credential, please re-login!",
               icon: "error",
-            })
-              .then((yes) => {
-                if (yes) {
-                  dispatch(logout());
-                  Router.reload("/");
-                }
-              })
-              .catch((err) => {
-                console.log("error get user ==> ", err.response);
-              });
+            });
           }
         });
     }

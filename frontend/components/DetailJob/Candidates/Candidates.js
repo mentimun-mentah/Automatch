@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackdropModal, LeftToRight } from "../../Transition";
@@ -10,15 +10,46 @@ import CustomCalculation from "./ModalCalculation/Custom";
 
 const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   const dispatch = useDispatch();
+  const inputRef = useRef();
   const [modalShow, setModalShow] = useState(false);
   const [customView, setCustomView] = useState(false);
+  const [enteredFilter, setEnteredFilter] = useState("");
 
   const modal = useSelector((state) => state.applicants.modal);
+  const applicantData = useSelector((state) => state.applicants.applicant);
 
   const onGetScoreApplicant = useCallback(
     (jobId) => dispatch(actions.getScoreApplicant(jobId)),
     [dispatch]
   ); // GET SCORE APPLICANT
+
+  const onSearchApplicant = useCallback(
+    (search, jobId) => dispatch(actions.searchApplicant(search, jobId)),
+    [dispatch]
+  ); // GET SCORE APPLICANT
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (enteredFilter === inputRef.current.value) {
+        if (enteredFilter.length > 0) {
+          onSearchApplicant(enteredFilter, jobId);
+        }
+      }
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [enteredFilter, inputRef]);
+
+  useEffect(() => {
+    if (applicantData) {
+      const loadedApplicant = [];
+      for (let key in applicantData) {
+        loadedApplicant.push({ ...applicantData[key] });
+      }
+      dispatch(actions.searchApplicantSuccess(loadedApplicant));
+    }
+  }, [dispatch]);
 
   const showModalHandler = () => {
     document.body.classList.add("modal-open");
@@ -64,10 +95,17 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
           <h2>Candidates : </h2>
         </div>
         <div className="col">
-          <div className="row">
+          <div className="row align-items-center">
             <div className="col-3">Search</div>
             <div className="col">
-              <input className="form-control form-control-sm" type="text" />
+              <input
+                ref={inputRef}
+                className="form-control form-control-sm"
+                type="text"
+                placeholder="by name"
+                value={enteredFilter}
+                onChange={(event) => setEnteredFilter(event.target.value)}
+              />
             </div>
           </div>
         </div>

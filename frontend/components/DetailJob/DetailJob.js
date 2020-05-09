@@ -88,7 +88,7 @@ const DetailJob = ({
                 <i className="fal fa-times-circle mr-1"></i>Delete job
               </button>
             </div>
-            <div className="job-content mt-4">{parse(contents)}</div>
+            {/*<div className="job-content mt-4">{parse(contents)}</div>*/}
             <h5 className="mt-4">Concepts</h5>
             {badgeLoading}
             {renderConcepts()}

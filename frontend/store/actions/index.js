@@ -7,4 +7,6 @@ export {
   getScoreApplicant,
   modalReset,
   qualifyApplicant,
+  searchApplicant,
+  searchApplicantSuccess,
 } from "./applicant";
