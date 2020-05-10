@@ -77,18 +77,6 @@ const qualifyApplicantFail = (state, action) => {
 };
 /***QUALIFY APPLICANT***/
 
-/***SEARCH APPLICANT***/
-const searchApplicantStart = (state, action) => {
-  return updateObject(state, { loading: false, error: null });
-};
-const searchApplicantSuccess = (state, action) => {
-  return updateObject(state, { loading: false, applicant: action.applicant });
-};
-const searchApplicantFail = (state, action) => {
-  return updateObject(state, { loading: false });
-};
-/***SEARCH APPLICANT***/
-
 /***MODAL RESET***/
 const modalReset = (state, action) => {
   return updateObject(state, { modal: true });
@@ -135,14 +123,6 @@ const reducer = (state = initialState, action) => {
       return qualifyApplicantFail(state, action);
     case actionType.QUALIFY_APPLICANT_FAIL:
       return qualifyApplicantFail(state, action);
-
-    /***SEARCH APPLICANT***/
-    case actionType.SEARCH_APPLICANT_START:
-      return searchApplicantStart(state, action);
-    case actionType.SEARCH_APPLICANT_SUCCESS:
-      return searchApplicantSuccess(state, action);
-    case actionType.SEARCH_APPLICANT_FAIL:
-      return searchApplicantFail(state, action);
 
     case actionType.MODAL_RESET:
       return modalReset(state, action);

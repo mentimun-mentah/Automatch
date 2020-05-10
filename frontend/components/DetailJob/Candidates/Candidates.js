@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackdropModal, LeftToRight } from "../../Transition";
@@ -10,13 +10,15 @@ import CustomCalculation from "./ModalCalculation/Custom";
 
 const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   const dispatch = useDispatch();
-  const inputRef = useRef();
   const [modalShow, setModalShow] = useState(false);
   const [customView, setCustomView] = useState(false);
   const [enteredFilter, setEnteredFilter] = useState("");
 
   const modal = useSelector((state) => state.applicants.modal);
-  const applicantData = useSelector((state) => state.applicants.applicant);
+  //const applicantData = useSelector((state) => state.applicants.applicant);
+  const jobData = useSelector((state) => state.jobs.jobData);
+  const appBack = useSelector((state) => state.jobs.applicants);
+  const { applicants } = jobData;
 
   const onGetScoreApplicant = useCallback(
     (jobId) => dispatch(actions.getScoreApplicant(jobId)),
@@ -29,23 +31,19 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   ); // GET SCORE APPLICANT
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (enteredFilter === inputRef.current.value) {
-        if (enteredFilter.length > 0) {
-          onSearchApplicant(enteredFilter, jobId);
-        }
-      }
-    }, 300);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [enteredFilter, inputRef]);
+    if (applicants && enteredFilter.length > 0) {
+      onSearchApplicant(enteredFilter, jobId);
+    }
+    if (enteredFilter === "") {
+      dispatch(actions.searchApplicantSuccess(appBack));
+    }
+  }, [enteredFilter, onSearchApplicant]);
 
   useEffect(() => {
-    if (applicantData) {
+    if (applicants && enteredFilter !== "") {
       const loadedApplicant = [];
-      for (let key in applicantData) {
-        loadedApplicant.push({ ...applicantData[key] });
+      for (let key in applicants) {
+        jobData.applicants.push({ ...applicants[key] });
       }
       dispatch(actions.searchApplicantSuccess(loadedApplicant));
     }
@@ -99,7 +97,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
             <div className="col-3">Search</div>
             <div className="col">
               <input
-                ref={inputRef}
                 className="form-control form-control-sm"
                 type="text"
                 placeholder="by name"

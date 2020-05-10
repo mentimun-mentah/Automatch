@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, ButtonGroup, ProgressBar, Modal } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Button } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zoom, BackdropModal, Fade } from "../../Transition";
+import { BackdropModal, Fade } from "../../Transition";
 import ReactTooltip from "react-tooltip";
 import ScoreModal from "./ScoreModal";
 import PropagateLoader from "../../Transition/Spinner/PropagateLoader";

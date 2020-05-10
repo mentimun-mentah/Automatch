@@ -23,6 +23,7 @@ const Detail = () => {
   const loading = useSelector((state) => state.applicants.loading);
   const profile = useSelector((state) => state.applicants.getApplicant);
   const jobData = useSelector((state) => state.jobs.jobData);
+  const applicants = useSelector((state) => state.jobs.jobData.applicants);
   const {
     id,
     image,
@@ -33,7 +34,6 @@ const Detail = () => {
     concepts,
     contents,
     keywords,
-    applicants,
   } = jobData;
 
   const onScrapingApplicants = useCallback(

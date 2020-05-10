@@ -230,14 +230,12 @@ export const qualifyApplicant = (id, jobId, ctx) => {
 
 export const searchApplicant = (search, jobId, ctx) => {
   return (dispatch) => {
-    dispatch(searchApplicantStart());
     const { access_token } = cookie.get(ctx);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     axios
       .get(`/search-applicant/?s=${search}&job_id=${jobId}`, headerCfg)
       .then((res) => {
         dispatch(searchApplicantSuccess(res.data));
-        console.log(res.data);
       });
   };
 };

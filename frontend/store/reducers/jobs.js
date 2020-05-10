@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: null,
   jobData: null,
+  applicants: [],
 };
 
 /***JOB SCRAPING***/
@@ -24,7 +25,11 @@ export const getJobStart = (state, action) => {
   return updateObject(state, { loading: true, error: null });
 };
 export const getJobSuccess = (state, action) => {
-  return updateObject(state, { loading: false, jobData: action.jobData });
+  return updateObject(state, {
+    loading: false,
+    jobData: action.jobData,
+    applicants: action.jobData.applicants,
+  });
 };
 export const getJobFail = (state, action) => {
   return updateObject(state, { loading: false, error: action.error });
@@ -43,6 +48,20 @@ export const getCkFail = (state, action) => {
 };
 /***GET CK JOB***/
 
+/***SEARCH APPLICANT***/
+const searchApplicantStart = (state, action) => {
+  return updateObject(state, { loading: false, error: null });
+};
+const searchApplicantSuccess = (state, action) => {
+  let newState = { ...state };
+  newState.jobData.applicants = action.applicant;
+  return newState;
+};
+const searchApplicantFail = (state, action) => {
+  return updateObject(state, { loading: false });
+};
+/***SEARCH APPLICANT***/
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     /***JOB SCRAPING***/
@@ -52,7 +71,6 @@ const reducer = (state = initialState, action) => {
       return jobScrapingSuccess(state, action);
     case actionType.JOB_SCRAPING_FAIL:
       return jobScrapingFail(state, action);
-    /***JOB SCRAPING***/
 
     /***GET JOB***/
     case actionType.GET_JOB_START:
@@ -61,7 +79,6 @@ const reducer = (state = initialState, action) => {
       return getJobSuccess(state, action);
     case actionType.GET_JOB_FAIL:
       return getJobFail(state, action);
-    /***GET JOB***/
 
     /***GET CK JOB***/
     case actionType.GET_CK_START:
@@ -70,7 +87,14 @@ const reducer = (state = initialState, action) => {
       return getCkSuccess(state, action);
     case actionType.GET_CK_FAIL:
       return getCkFail(state, action);
-    /***GET CK JOB***/
+
+    /***SEARCH APPLICANT***/
+    case actionType.SEARCH_APPLICANT_START:
+      return searchApplicantStart(state, action);
+    case actionType.SEARCH_APPLICANT_SUCCESS:
+      return searchApplicantSuccess(state, action);
+    case actionType.SEARCH_APPLICANT_FAIL:
+      return searchApplicantFail(state, action);
 
     default:
       return state;
