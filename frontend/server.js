@@ -19,6 +19,11 @@ app.prepare().then(() => {
     res.redirect(302, "http://localhost:3000/");
   });
 
+  server.get("/export/:jobId", (req, res) => {
+    const { jobId } = req.params;
+    return app.render(req, res, "/export", { jobId });
+  });
+
   server.all("*", (req, res) => {
     return handle(req, res);
   });

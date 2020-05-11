@@ -5,6 +5,7 @@ import { BackdropModal, LeftToRight } from "../../Transition";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../../store/actions";
+import Link from "next/link";
 import DefaulCalculation from "./ModalCalculation/Default";
 import CustomCalculation from "./ModalCalculation/Custom";
 
@@ -15,7 +16,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   const [enteredFilter, setEnteredFilter] = useState("");
 
   const modal = useSelector((state) => state.applicants.modal);
-  //const applicantData = useSelector((state) => state.applicants.applicant);
   const jobData = useSelector((state) => state.jobs.jobData);
   const appBack = useSelector((state) => state.jobs.applicants);
   const { applicants } = jobData;
@@ -81,6 +81,11 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
     defaultModal();
   }
 
+  let btnExport = true;
+  for (let key in appBack) {
+    btnExport = appBack[key].score !== 0 && btnExport;
+  }
+
   return (
     <motion.div
       initial="initial"
@@ -107,7 +112,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
           </div>
         </div>
       </div>
-
       <div className="table-head">
         <table className="table mb-0">
           <thead>
@@ -126,7 +130,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
           </thead>
         </table>
       </div>
-
       <div className="table-scroll mb-3">
         <table className="table">
           <AnimatePresence exitBeforeEnter>
@@ -134,13 +137,15 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
           </AnimatePresence>
         </table>
       </div>
-
       <Button variant="secondary" className="mr-2" onClick={showModalHandler}>
         <i className="far fa-sync mr-2"></i>Calculate!
       </Button>
-      <Button variant="info">
-        <i className="far fa-print mr-2"></i>Print A Report
-      </Button>
+
+      <Link href={`/export?jobId=${jobId}`} as={`/export/${jobId}`}>
+        <button className="btn btn-info" disabled={!btnExport}>
+          <i className="far fa-print mr-2"></i>Print A Report
+        </button>
+      </Link>
 
       <Form>
         <Form.Group className="mb-0">
@@ -171,7 +176,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
       >
         You have to seperate the links with ENTER key!
       </p>
-
       <AnimatePresence exitBeforeEnter>
         {modalShow ? (
           <motion.div
@@ -224,7 +228,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
           ></motion.div>
         ) : null}
       </AnimatePresence>
-
       <style jsx>{`
         .modal-content {
           border: none !important;

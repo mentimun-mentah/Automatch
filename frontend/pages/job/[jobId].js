@@ -205,9 +205,7 @@ const Detail = () => {
 Detail.getInitialProps = async (ctx) => {
   const { jobId } = ctx.query;
   const { access_token } = cookie.get(ctx);
-  const headerCfg = {
-    headers: { Authorization: `Bearer ${access_token}` },
-  };
+  const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
 
   let res = await axios.get(`/job/${jobId}`, headerCfg);
   ctx.store.dispatch(actions.getJobSuccess(res.data));

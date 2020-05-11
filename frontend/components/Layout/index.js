@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 import * as actions from "../../store/actions";
 import cron from "node-cron";
@@ -8,6 +9,7 @@ import Footer from "../Footer";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const refresh_token = useSelector((state) => state.auth.refresh_token);
 
   const task = cron.schedule("10 * * * * *", () => {
@@ -31,9 +33,9 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header />
+      {router.asPath === "/profile" ? null : <Header />}
       {children}
-      <Footer />
+      {router.asPath === "/profile" ? null : <Footer />}
     </>
   );
 };
