@@ -1,6 +1,32 @@
+import { useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { isAuth } from "../../hoc/withAuth";
+import { useDispatch, useSelector } from "react-redux";
 
-const Profile = () => {
+import * as actions from "../../store/actions";
+
+const Profile = ({ image, imageHandler }) => {
+  const dispatch = useDispatch();
+  const access_token = useSelector((state) => state.auth.access_token);
+  const refresh_token = useSelector((state) => state.auth.refresh_token);
+  const user = useSelector((state) => state.auth.user);
+
+  const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
+  const onCheckState = () => dispatch(actions.authCheckState());
+
+  useEffect(() => {
+    if (access_token === null || refresh_token === null || user === null) {
+      onGetUser(isAuth());
+      onCheckState();
+    }
+  }, []);
+
+  let avatar = "";
+  if (image && image.includes("blob:")) {
+    avatar = image;
+  } else if (image) {
+    avatar = `http://localhost:5000/static/avatars/${image}`;
+  }
   return (
     <Container fluid>
       <Row className="mt-4 justify-content-center">
@@ -11,7 +37,7 @@ const Profile = () => {
           <Card className="pt-4">
             <Card.Body className="pt-0">
               <img
-                src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-4.jpg"
+                src={avatar}
                 className="img-thumbnail rounded mx-auto d-block"
                 alt="profile"
                 width="130"
@@ -20,11 +46,17 @@ const Profile = () => {
               <div className="text-center">
                 <button className="btn btn-primary btnrel rounded-pill">
                   <span>Change picture</span>
-                  <input className="upload" type="file" />
+                  <input
+                    className="upload"
+                    type="file"
+                    onChange={imageHandler}
+                    accept=".jpg,.png,.jpeg"
+                  />
                 </button>
-                <h5 className="title mt-2">Andrew Hau</h5>
-                <p className="text-muted">andrew.hau@hauhau.com</p>
+                <h5 className="title mt-2">{user.username}</h5>
+                <p className="text-muted">{user.email}</p>
               </div>
+
               <Container className="pl-5 pr-5">
                 <Row className="row-cols-2 mt-4">
                   <Form.Group as={Col} controlId="formGridUsername">
@@ -115,4 +147,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

@@ -1,9 +1,29 @@
+import { useEffect } from "react";
+import { isAuth } from "../../hoc/withAuth";
 import { Container, Row, Col } from "react-bootstrap";
 import { Card, Table, Pagination } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as actions from "../../store/actions";
 import BarVer from "./BarVer";
 import BarHor from "./BarHor";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const access_token = useSelector((state) => state.auth.access_token);
+  const refresh_token = useSelector((state) => state.auth.refresh_token);
+  const user = useSelector((state) => state.auth.user);
+
+  const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
+  const onCheckState = () => dispatch(actions.authCheckState());
+
+  useEffect(() => {
+    if (access_token === null || refresh_token === null || user === null) {
+      onGetUser(isAuth());
+      onCheckState();
+    }
+  }, []);
+
   return (
     <Container fluid>
       <Row className="mb-3">
@@ -210,4 +230,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

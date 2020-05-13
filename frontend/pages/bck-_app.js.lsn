@@ -37,7 +37,11 @@ const App = ({ Component, pageProps, store }) => {
           href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css"
         />
       </Head>
-      <Provider store={store}>{layout}</Provider>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
       <style global jsx>{`
         html {
           scroll-behavior: smooth;

@@ -1,4 +1,11 @@
-export { authCheckState, refreshToken, logout, getUser } from "./auth";
+export {
+  authCheckState,
+  refreshToken,
+  logout,
+  getUser,
+  getUserSuccess,
+  changeAvatar,
+} from "./auth";
 export { jobScraping, getJob, getJobSuccess, getCk, deleteJob } from "./jobs";
 export {
   applicantScraping,

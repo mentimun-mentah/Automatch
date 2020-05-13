@@ -1,7 +1,35 @@
+import { useState, useEffect } from "react";
 import { ListGroup, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { parseCookies, destroyCookie } from "nookies";
+
+import * as actions from "../../store/actions";
 import Link from "next/link";
 
-const dashboard = ({ children }) => {
+const Sidebar = ({ children }) => {
+  const dispatch = useDispatch();
+  const [tkn, setTkn] = useState();
+
+  const onLogout = () => dispatch(actions.logout());
+  const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
+
+  const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    const { access_token } = parseCookies();
+    setTkn(access_token);
+    if (access_token) {
+      onGetUser(access_token);
+    }
+  }, [tkn]);
+
+  const logoutHandler = () => {
+    setTkn();
+    onLogout();
+    destroyCookie(null, "access_token");
+    destroyCookie(null, "refresh_token");
+  };
+
   return (
     <div className="d-flex" id="wrapper">
       <div className="border-right col-2" id="sidebar-wrapper">
@@ -27,7 +55,7 @@ const dashboard = ({ children }) => {
                   <i className="fal fa-chart-pie-alt mr-2"></i> Dashboard
                 </ListGroup.Item>
               </Link>
-              <Link href="/profile/[user]" as={`/profile/[user]`}>
+              <Link href="/profile/[user]" as={`/profile/${user.username}`}>
                 <ListGroup.Item action className="sidebar-item">
                   <i className="fal fa-user mr-2"></i> User Profile
                 </ListGroup.Item>
@@ -46,8 +74,12 @@ const dashboard = ({ children }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <NavDropdown title="Username" alignRight>
-                <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+              <NavDropdown title={user.username} alignRight>
+                <Link href="/logout">
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </Link>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
@@ -154,4 +186,4 @@ const dashboard = ({ children }) => {
   );
 };
 
-export default dashboard;
+export default Sidebar;

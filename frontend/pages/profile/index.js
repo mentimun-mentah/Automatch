@@ -1,3 +1,4 @@
+import { withAuth } from "../../hoc/withAuth";
 import Router from "next/router";
 
 const dashboardProfile = () => null;
@@ -5,8 +6,7 @@ const dashboardProfile = () => null;
 dashboardProfile.getInitialProps = (ctx) => {
   process.browser
     ? Router.replace("/profile/dashboard")
-    : ctx.res.replace(302, "/profile/dashboard");
-  ctx.res.end();
+    : ctx.res.redirect(302, "/profile/dashboard");
 };
 
-export default dashboardProfile;
+export default withAuth(dashboardProfile);
