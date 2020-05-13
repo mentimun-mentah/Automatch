@@ -113,6 +113,7 @@ export const getJob = (jobId, ctx) => {
     axios
       .get(`/job/${jobId}`, headerCfg)
       .then((res) => {
+        console.log("getJobSuccessApplicant ==> ", res);
         dispatch(getJobSuccess(res.data));
       })
       .catch((error) => {

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { Button, ButtonGroup, ProgressBar, Modal } from "react-bootstrap";
-import { motion, AnimatePresence } from "framer-motion";
+import { ProgressBar, Modal } from "react-bootstrap";
+import { motion } from "framer-motion";
 import { Zoom } from "../../Transition";
 
 const ScoreModal = React.memo(({ closeModal, score }) => {

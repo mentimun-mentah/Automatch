@@ -19,7 +19,6 @@ const DetailJob = ({
   contents,
   concepts,
   keywords,
-  access_token,
   children,
 }) => {
   const dispatch = useDispatch();

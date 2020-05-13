@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  Button,
-  Modal,
-  NavDropdown,
-} from "react-bootstrap";
+import { Navbar, Container, Nav, Form } from "react-bootstrap";
+import { Button, Modal, NavDropdown } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackdropModal } from "../Transition";
 import { useDispatch, useSelector } from "react-redux";
