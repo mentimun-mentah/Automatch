@@ -22,6 +22,7 @@ const Profile = ({ image, imageHandler }) => {
   if (user.position === null) {
     user.position = "";
   }
+
   const formUpdateProfile = {
     username: { value: user.username, isValid: true, message: "" },
     company_name: { value: user.company_name, isValid: true, message: "" },
@@ -29,13 +30,23 @@ const Profile = ({ image, imageHandler }) => {
     position: { value: user.position, isValid: true, message: "" },
   };
 
+  const formUpdatePassword = {
+    password: { value: "", isValid: true, message: "" },
+    new_password: { value: "", isValid: true, message: "" },
+    confirm_password: { value: "", isValid: true, message: "" },
+  };
+
   const [profile, setProfile] = useState(formUpdateProfile);
+  const [newPassword, setNewPassword] = useState(formUpdatePassword);
 
   const access_token = useSelector((state) => state.auth.access_token);
   const refresh_token = useSelector((state) => state.auth.refresh_token);
 
   const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
   const onCheckState = () => dispatch(actions.authCheckState());
+  const onLogout = () => dispatch(actions.logout());
+
+  const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
 
   useEffect(() => {
     if (access_token === null || refresh_token === null || user === null) {
@@ -58,6 +69,61 @@ const Profile = ({ image, imageHandler }) => {
     setProfile(data);
   };
 
+  const inputPasswordHandler = (event) => {
+    const { name, value } = event.target;
+    const data = {
+      ...newPassword,
+      [name]: {
+        ...newPassword[name],
+        value: value,
+        isValid: true,
+        message: "",
+      },
+    };
+    setNewPassword(data);
+  };
+
+  const savePasswordHanlder = (event) => {
+    event.preventDefault();
+    resetValidationPassword();
+    if (passwordIsValid) {
+      const data = {
+        password: newPassword.password.value,
+        new_password: newPassword.new_password.value,
+        confirm_password: newPassword.confirm_password.value,
+      };
+      axios
+        .put("/update-password", data, headerCfg)
+        .then((res) => {
+          swal({
+            title: "Yuhuu!",
+            text: res.data.message,
+            icon: "success",
+            timer: 3000,
+          });
+          console.log("success update password => ", res.data);
+        })
+        .catch((err) => {
+          console.log("error update password => ", err.response);
+          if (err.response.data.msg === "Fresh token required") {
+            swal({
+              title: "Upssss!",
+              text: "You need to re-login first.",
+              icon: "error",
+              buttons: ["Cancel", "Logout"],
+              dangerMode: true,
+            }).then((willDelete) => {
+              if (willDelete) {
+                onLogout();
+              } else {
+              }
+            });
+          }
+        });
+      console.log(data);
+    }
+  };
+
   const saveProfileHandler = (event) => {
     event.preventDefault();
     resetValidation();
@@ -68,16 +134,12 @@ const Profile = ({ image, imageHandler }) => {
         company_site: profile.company_site.value,
         position: profile.position.value,
       };
-      const headerCfg = {
-        headers: { Authorization: `Bearer ${access_token}` },
-      };
       axios
         .put("/update-profile", data, headerCfg)
         .then((res) => {
-          const { message } = res.data;
           swal({
             title: "Yuhuu!",
-            text: message,
+            text: res.data.message,
             icon: "success",
             timer: 3000,
           });
@@ -110,6 +172,17 @@ const Profile = ({ image, imageHandler }) => {
       }
     }
     setProfile(state);
+  };
+
+  const resetValidationPassword = () => {
+    const state = JSON.parse(JSON.stringify(newPassword));
+    for (let key in state) {
+      if (state[key].hasOwnProperty("isValid")) {
+        state[key].isValid = true;
+        state[key].message = "";
+      }
+    }
+    setNewPassword(state);
   };
 
   const profileIsValid = () => {
@@ -150,6 +223,40 @@ const Profile = ({ image, imageHandler }) => {
     return isGood;
   };
 
+  const passwordIsValid = () => {
+    const password = { ...newPassword.password };
+    const new_password = { ...newPassword.new_password };
+    const confirm_password = { ...newPassword.confirm_password };
+    let isGood = true;
+
+    if (!validator.isLength(password.value, { min: 6, max: undefined })) {
+      password.isValid = false;
+      password.message = "Password at least 6 characters";
+      isGood = false;
+    }
+    if (!validator.isLength(new_password.value, { min: 6, max: undefined })) {
+      new_password.isValid = false;
+      new_password.message = "New Password at least 6 characters";
+      isGood = false;
+    }
+    if (
+      !validator.isLength(confirm_password.value, { min: 6, max: undefined })
+    ) {
+      confirm_password.isValid = false;
+      confirm_password.message = "Confirm Password at least 6 characters";
+      isGood = false;
+    }
+    if (!validator.equals(confirm_password.value, new_password.value)) {
+      new_password.isValid = false;
+      new_password.message = "Password isn't matches";
+      isGood = false;
+    }
+    if (!isGood) {
+      setNewPassword({ password, new_password, confirm_password });
+    }
+    return isGood;
+  };
+
   let avatar = "";
   if (image && image.includes("blob:")) {
     avatar = image;
@@ -158,10 +265,14 @@ const Profile = ({ image, imageHandler }) => {
   }
 
   const { username, company_name, company_site, position } = profile;
+  const { password, new_password, confirm_password } = newPassword;
   const usernameInvalid = cx({ "is-invalid": !username.isValid });
   const cNameInvalid = cx({ "is-invalid": !company_name.isValid });
   const cSiteInvalid = cx({ "is-invalid": !company_site.isValid });
   const positionInvalid = cx({ "is-invalid": !position.isValid });
+  const passwordInvalid = cx({ "is-invalid": !password.isValid });
+  const nPasswordInvalid = cx({ "is-invalid": !new_password.isValid });
+  const CNPasswordInvalid = cx({ "is-invalid": !confirm_password.isValid });
   return (
     <Container fluid>
       <Row className="mt-4 justify-content-center">
@@ -285,7 +396,16 @@ const Profile = ({ image, imageHandler }) => {
                   <Form.Control
                     type="password"
                     placeholder="Type your current password"
+                    name="password"
+                    className={passwordInvalid}
+                    onChange={inputPasswordHandler}
+                    value={password.value}
                   />
+                  {!password.isValid && (
+                    <small className="form-text text-muted mt-0 mb-n2">
+                      {password.message}
+                    </small>
+                  )}
                 </Form.Group>
                 <Row className="row-cols-2 mt-4">
                   <Form.Group as={Col} controlId="formGridNew">
@@ -293,17 +413,39 @@ const Profile = ({ image, imageHandler }) => {
                     <Form.Control
                       type="password"
                       placeholder="Type your new password"
+                      name="new_password"
+                      className={nPasswordInvalid}
+                      onChange={inputPasswordHandler}
+                      value={new_password.value}
                     />
+                    {!new_password.isValid && (
+                      <small className="form-text text-muted mt-0 mb-n2">
+                        {new_password.message}
+                      </small>
+                    )}
                   </Form.Group>
                   <Form.Group as={Col} controlId="formGridConfirm">
                     <Form.Label>Confirm New Password</Form.Label>
                     <Form.Control
                       type="password"
                       placeholder="Re-type your new password"
+                      name="confirm_password"
+                      className={CNPasswordInvalid}
+                      onChange={inputPasswordHandler}
+                      value={confirm_password.value}
                     />
+                    {!confirm_password.isValid && (
+                      <small className="form-text text-muted mt-0 mb-n2">
+                        {confirm_password.message}
+                      </small>
+                    )}
                   </Form.Group>
                 </Row>
-                <Button variant="success" className="float-right mt-2 mb-0">
+                <Button
+                  variant="success"
+                  className="float-right mt-2 mb-0"
+                  onClick={savePasswordHanlder}
+                >
                   Save changes
                 </Button>
               </Container>

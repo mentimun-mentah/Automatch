@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ListGroup, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { parseCookies, destroyCookie } from "nookies";
 
 import * as actions from "../../store/actions";
+import cron from "node-cron";
 import Link from "next/link";
 
 const Sidebar = ({ children }) => {
@@ -11,9 +12,29 @@ const Sidebar = ({ children }) => {
   const [tkn, setTkn] = useState();
 
   const onLogout = () => dispatch(actions.logout());
+  const refresh_token = useSelector((state) => state.auth.refresh_token);
   const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
 
   const user = useSelector((state) => state.auth.user);
+
+  const task = cron.schedule("10 * * * * *", () => {
+    dispatch(actions.refreshToken(refresh_token));
+  });
+  if (refresh_token === undefined) {
+    task.destroy();
+  }
+  if (refresh_token) {
+    task.start();
+  }
+
+  const onTryAutoSignin = useCallback(
+    () => dispatch(actions.authCheckState()),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    onTryAutoSignin();
+  }, [onTryAutoSignin]);
 
   useEffect(() => {
     const { access_token } = parseCookies();
