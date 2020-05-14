@@ -1,11 +1,16 @@
 import { HorizontalBar } from "react-chartjs-2";
 
-const state = {
-  labels: ["> 5 years", " 3 - 5 years", "1 - 3 years", "< 1 years"],
-  datasets: [{ backgroundColor: "#f87979", data: [40, 20, 12, 39] }],
-};
-
-const BarHor = () => {
+const BarHor = ({ lengthOfWork }) => {
+  let label = [];
+  let vLength = [];
+  for (let [key, value] of Object.entries(lengthOfWork)) {
+    label.push(key);
+    vLength.push(value);
+  }
+  const state = {
+    labels: label,
+    datasets: [{ backgroundColor: "#f87979", data: vLength }],
+  };
   return (
     <div>
       <HorizontalBar
@@ -23,4 +28,3 @@ const BarHor = () => {
 };
 
 export default BarHor;
-

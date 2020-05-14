@@ -5,6 +5,10 @@ export {
   getUser,
   getUserSuccess,
   changeAvatar,
+  getDashboard,
+  getDashboardSuccess,
+  searchJob,
+  searchJobSuccess,
 } from "./auth";
 export { jobScraping, getJob, getJobSuccess, getCk, deleteJob } from "./jobs";
 export {

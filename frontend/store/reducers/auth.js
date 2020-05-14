@@ -5,6 +5,8 @@ const initialState = {
   access_token: null,
   refresh_token: null,
   user: null,
+  dashboard: null,
+  jobs: null,
 };
 
 /*** LOGIN ***/
@@ -33,6 +35,26 @@ const refreshTokenSuccess = (state, action) => {
   return updateObject(state, { access_token: action.access_token });
 };
 
+const getDashboardStart = (state, action) => {
+  return updateObject(state, {});
+};
+const getDashboardSuccess = (state, action) => {
+  return updateObject(state, { dashboard: action.dashboard });
+};
+const getDashboardFail = (state, action) => {
+  return updateObject(state, { error: action.error });
+};
+
+const searchJobStart = (state, action) => {
+  return updateObject(state, { error: null });
+};
+const searchJobSuccess = (state, action) => {
+  return updateObject(state, { jobs: action.jobs });
+};
+const searchJobFail = (state, action) => {
+  return updateObject(state, { error: action.error });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     /*** LOGIN ***/
@@ -50,6 +72,21 @@ const reducer = (state = initialState, action) => {
     /*** REFRESH TOKEN ***/
     case actionType.REFRESH_TOKEN_SUCCESS:
       return refreshTokenSuccess(state, action);
+
+    case actionType.GET_DASHBOARD_START:
+      return getDashboardStart(state, action);
+    case actionType.GET_DASHBOARD_SUCCESS:
+      return getDashboardSuccess(state, action);
+    case actionType.GET_DASHBOARD_FAIL:
+      return getDashboardFail(state, action);
+
+    case actionType.SEARCH_JOB_START:
+      return searchJobStart(state, action);
+    case actionType.SEARCH_JOB_SUCCESS:
+      return searchJobSuccess(state, action);
+    case actionType.SEARCH_JOB_FAIL:
+      return searchJobFail(state, action);
+
     default:
       return state;
   }

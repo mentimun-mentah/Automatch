@@ -28,7 +28,7 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   const onSearchApplicant = useCallback(
     (search, jobId) => dispatch(actions.searchApplicant(search, jobId)),
     [dispatch]
-  ); // GET SCORE APPLICANT
+  ); // SEARCH APPLICANT
 
   useEffect(() => {
     if (applicants && enteredFilter.length > 0) {

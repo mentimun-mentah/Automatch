@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ListGroup, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { parseCookies, destroyCookie } from "nookies";
 
 import * as actions from "../../store/actions";
+import cron from "node-cron";
 import Link from "next/link";
 
 const Sidebar = ({ children }) => {
@@ -11,9 +12,29 @@ const Sidebar = ({ children }) => {
   const [tkn, setTkn] = useState();
 
   const onLogout = () => dispatch(actions.logout());
+  const refresh_token = useSelector((state) => state.auth.refresh_token);
   const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
 
   const user = useSelector((state) => state.auth.user);
+
+  const task = cron.schedule("10 * * * * *", () => {
+    dispatch(actions.refreshToken(refresh_token));
+  });
+  if (refresh_token === undefined) {
+    task.destroy();
+  }
+  if (refresh_token) {
+    task.start();
+  }
+
+  const onTryAutoSignin = useCallback(
+    () => dispatch(actions.authCheckState()),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    onTryAutoSignin();
+  }, [onTryAutoSignin]);
 
   useEffect(() => {
     const { access_token } = parseCookies();
@@ -26,6 +47,7 @@ const Sidebar = ({ children }) => {
   const logoutHandler = () => {
     setTkn();
     onLogout();
+    window.location.reload("/");
     destroyCookie(null, "access_token");
     destroyCookie(null, "refresh_token");
   };
@@ -70,16 +92,14 @@ const Sidebar = ({ children }) => {
           expand="lg"
           className="border-bottom bg-white navbar-profile mb-3"
         >
-          <Navbar.Brand href="#home">Dashboard</Navbar.Brand>
+          <Navbar.Brand href="#">Dashboard</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavDropdown title={user.username} alignRight>
-                <Link href="/logout">
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </Link>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
