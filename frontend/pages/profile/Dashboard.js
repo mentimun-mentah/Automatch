@@ -14,6 +14,8 @@ Dashboard.getInitialProps = async (ctx) => {
   ctx.store.dispatch(actions.getUserSuccess(res.data));
   const resdash = await axios.get("/dashboard-user", headerCfg);
   ctx.store.dispatch(actions.getDashboardSuccess(resdash.data));
+  const search = await axios.get("/dashboard-user/jobs?page=&q=", headerCfg);
+  ctx.store.dispatch(actions.searchJobSuccess(search.data));
 };
 
 export default withAuth(Dashboard);

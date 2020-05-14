@@ -36,6 +36,16 @@ export const getDashboardFail = (error) => {
   return { type: actionType.GET_DASHBOARD_FAIL, error: error };
 };
 
+export const searchJobStart = () => {
+  return { type: actionType.SEARCH_JOB_START };
+};
+export const searchJobSuccess = (jobs) => {
+  return { type: actionType.SEARCH_JOB_SUCCESS, jobs: jobs };
+};
+export const searchJobFail = (error) => {
+  return { type: actionType.SEARCH_JOB_FAIL, error: error };
+};
+
 export const getUser = (access_token) => {
   return (dispatch) => {
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
@@ -154,6 +164,18 @@ export const getDashboard = (ctx) => {
       .catch((err) => {
         dispatch(getDashboardFail(err.response));
         console.log("getDashboardFail => ", err.response);
+      });
+  };
+};
+
+export const searchJob = (page, search, ctx) => {
+  return (dispatch) => {
+    const { access_token } = cookie.get(ctx);
+    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
+    axios
+      .get(`/dashboard-user/jobs?page=${page}&q=${search}`, headerCfg)
+      .then((res) => {
+        dispatch(searchJobSuccess(res.data));
       });
   };
 };
