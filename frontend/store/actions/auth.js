@@ -62,7 +62,8 @@ export const logout = (ctx) => {
         .delete("/logout", headerCfg)
         .then(() => {
           dispatch(authlogout());
-          Router.reload("/");
+          ctx.res.writeHead(302, { Location: "/" });
+          //Router.reload("/");
         })
         .catch((err) => {
           console.log("logout error", err.response);

@@ -8,6 +8,7 @@ import axios from "../../store/axios-instance";
 import validator from "validator";
 import cx from "classnames";
 import swal from "sweetalert";
+import Router from "next/router";
 
 const Profile = ({ image, imageHandler }) => {
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ const Profile = ({ image, imageHandler }) => {
   const savePasswordHanlder = (event) => {
     event.preventDefault();
     resetValidationPassword();
-    if (passwordIsValid) {
+    if (passwordIsValid()) {
       const data = {
         password: newPassword.password.value,
         new_password: newPassword.new_password.value,
@@ -114,11 +115,24 @@ const Profile = ({ image, imageHandler }) => {
               dangerMode: true,
             }).then((willDelete) => {
               if (willDelete) {
+                Router.replace("/");
                 onLogout();
               } else {
+                return;
               }
             });
           }
+          const state = JSON.parse(JSON.stringify(newPassword));
+          if (err.response && err.response.data) {
+            for (let key in err.response.data) {
+              if (state[key]) {
+                state[key].isValid = false;
+                state[key].value = state[key].value;
+                state[key].message = err.response.data[key];
+              }
+            }
+          }
+          setNewPassword(state);
         });
       console.log(data);
     }
