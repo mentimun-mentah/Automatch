@@ -298,7 +298,7 @@ const Profile = ({ image, imageHandler }) => {
             <Card.Body className="pt-0">
               <img
                 src={avatar}
-                className="img-thumbnail rounded mx-auto d-block"
+                className="img-thumbnail rounded mx-auto d-block avatar-square"
                 alt="profile"
                 width="130"
                 height="130"
@@ -483,6 +483,13 @@ const Profile = ({ image, imageHandler }) => {
           margin: 0;
           cursor: pointer;
           opacity: 0;
+        }
+        .avatar-square {
+          height: 130px;
+          width: 130px;
+          max-height: 130px;
+          max-width: 130px;
+          object-fit: cover;
         }
       `}</style>
     </Container>
