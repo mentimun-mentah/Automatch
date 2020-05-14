@@ -63,6 +63,7 @@ export const logout = (ctx) => {
         .then(() => {
           dispatch(authlogout());
           ctx.res.writeHead(302, { Location: "/" });
+          window.location.reload("/");
           //Router.reload("/");
         })
         .catch((err) => {

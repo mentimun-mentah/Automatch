@@ -47,6 +47,7 @@ const Sidebar = ({ children }) => {
   const logoutHandler = () => {
     setTkn();
     onLogout();
+    window.location.reload("/");
     destroyCookie(null, "access_token");
     destroyCookie(null, "refresh_token");
   };
@@ -91,16 +92,14 @@ const Sidebar = ({ children }) => {
           expand="lg"
           className="border-bottom bg-white navbar-profile mb-3"
         >
-          <Navbar.Brand href="#home">Dashboard</Navbar.Brand>
+          <Navbar.Brand href="#">Dashboard</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavDropdown title={user.username} alignRight>
-                <Link href="/logout">
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </Link>
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
