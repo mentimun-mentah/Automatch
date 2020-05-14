@@ -1,5 +1,4 @@
 import { withAuth } from "../../hoc/withAuth";
-import { useSelector } from "react-redux";
 import * as actions from "../../store/actions";
 import cookie from "nookies";
 import axios from "../../store/axios-instance";
@@ -13,6 +12,8 @@ Dashboard.getInitialProps = async (ctx) => {
   const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
   const res = await axios.get("/user", headerCfg);
   ctx.store.dispatch(actions.getUserSuccess(res.data));
+  const resdash = await axios.get("/dashboard-user", headerCfg);
+  ctx.store.dispatch(actions.getDashboardSuccess(resdash.data));
 };
 
 export default withAuth(Dashboard);

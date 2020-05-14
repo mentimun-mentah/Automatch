@@ -26,6 +26,16 @@ export const getUserSuccess = (user) => {
   return { type: actionType.GET_USER, user: user };
 };
 
+export const getDashboardStart = () => {
+  return { type: actionType.GET_DASHBOARD_START };
+};
+export const getDashboardSuccess = (dashboard) => {
+  return { type: actionType.GET_DASHBOARD_SUCCESS, dashboard: dashboard };
+};
+export const getDashboardFail = (error) => {
+  return { type: actionType.GET_DASHBOARD_FAIL, error: error };
+};
+
 export const getUser = (access_token) => {
   return (dispatch) => {
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
@@ -125,6 +135,25 @@ export const changeAvatar = (avatar, ctx) => {
       .catch((err) => {
         swal({ text: err.response.data.avatar[0], icon: "error" });
         console.log("changeAvatarFail => ", err.response);
+      });
+  };
+};
+
+export const getDashboard = (ctx) => {
+  return (dispatch) => {
+    const { access_token } = cookie.get(ctx);
+    dispatch(getUser(access_token));
+    dispatch(getDashboardStart());
+    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
+    axios
+      .get("/dashboard-user", headerCfg)
+      .then((res) => {
+        dispatch(getDashboardSuccess(res.data));
+        console.log("getDashboardSuccess => ", res.data);
+      })
+      .catch((err) => {
+        dispatch(getDashboardFail(err.response));
+        console.log("getDashboardFail => ", err.response);
       });
   };
 };

@@ -1,23 +1,21 @@
 import { Bar } from "react-chartjs-2";
 
-const state = {
-  labels: [
-    "Front End Developer",
-    "Backend Developer",
-    "UI Designer",
-    "Software Engineer Intern",
-    "Graphic Designer",
-    "Data Science",
-    "Android Engineer",
-    "Content Writer",
-    "SEO Manager",
-  ],
-  datasets: [
-    { backgroundColor: "#f87979", data: [70, 45, 50, 39, 25, 40, 39, 80, 40] },
-  ],
-};
-
-const BarVer = () => {
+const BarVer = ({ jobSummary }) => {
+  let label = [];
+  let vJob = [];
+  for (let [key, value] of Object.entries(jobSummary)) {
+    label.push(key);
+    vJob.push(value);
+  }
+  const state = {
+    labels: label,
+    datasets: [
+      {
+        backgroundColor: "#f87979",
+        data: vJob,
+      },
+    ],
+  };
   return (
     <div>
       <Bar
@@ -35,4 +33,3 @@ const BarVer = () => {
 };
 
 export default BarVer;
-

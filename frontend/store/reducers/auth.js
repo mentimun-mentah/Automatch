@@ -5,6 +5,7 @@ const initialState = {
   access_token: null,
   refresh_token: null,
   user: null,
+  dashboard: null,
 };
 
 /*** LOGIN ***/
@@ -33,6 +34,16 @@ const refreshTokenSuccess = (state, action) => {
   return updateObject(state, { access_token: action.access_token });
 };
 
+const getDashboardStart = (state, action) => {
+  return updateObject(state, {});
+};
+const getDashboardSuccess = (state, action) => {
+  return updateObject(state, { dashboard: action.dashboard });
+};
+const getDashboardFail = (state, action) => {
+  return updateObject(state, { error: action.error });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     /*** LOGIN ***/
@@ -50,6 +61,13 @@ const reducer = (state = initialState, action) => {
     /*** REFRESH TOKEN ***/
     case actionType.REFRESH_TOKEN_SUCCESS:
       return refreshTokenSuccess(state, action);
+
+    case actionType.GET_DASHBOARD_START:
+      return getDashboardStart(state, action);
+    case actionType.GET_DASHBOARD_SUCCESS:
+      return getDashboardSuccess(state, action);
+    case actionType.GET_DASHBOARD_FAIL:
+      return getDashboardFail(state, action);
     default:
       return state;
   }

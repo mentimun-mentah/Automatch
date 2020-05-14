@@ -13,6 +13,9 @@ const Dashboard = () => {
   const access_token = useSelector((state) => state.auth.access_token);
   const refresh_token = useSelector((state) => state.auth.refresh_token);
   const user = useSelector((state) => state.auth.user);
+  const dashboard = useSelector((state) => state.auth.dashboard);
+  const { total_applicant, published_job, qualify_applicant } = dashboard;
+  const { disqualify_applicant, job_summary, length_of_work } = dashboard;
 
   const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
   const onCheckState = () => dispatch(actions.authCheckState());
@@ -22,7 +25,7 @@ const Dashboard = () => {
       onGetUser(isAuth());
       onCheckState();
     }
-  }, []);
+  }, [onGetUser, onCheckState, access_token, refresh_token, user]);
 
   return (
     <Container fluid>
@@ -42,7 +45,7 @@ const Dashboard = () => {
                       <p className="card-category text-muted mb-1">
                         Total Applicants
                       </p>
-                      <h4 className="card-title mb-0">6</h4>
+                      <h4 className="card-title mb-0">{total_applicant}</h4>
                     </div>
                   </div>
                 </Col>
@@ -66,7 +69,7 @@ const Dashboard = () => {
                       <p className="card-category text-muted mb-1">
                         Published Jobs
                       </p>
-                      <h4 className="card-title mb-0">6</h4>
+                      <h4 className="card-title mb-0">{published_job}</h4>
                     </div>
                   </div>
                 </Col>
@@ -90,7 +93,7 @@ const Dashboard = () => {
                       <p className="card-category text-muted mb-1">
                         Qualify Applicants
                       </p>
-                      <h4 className="card-title mb-0">6</h4>
+                      <h4 className="card-title mb-0">{qualify_applicant}</h4>
                     </div>
                   </div>
                 </Col>
@@ -114,7 +117,9 @@ const Dashboard = () => {
                       <p className="card-category text-muted mb-1">
                         Disqualify Applicants
                       </p>
-                      <h4 className="card-title mb-0">6</h4>
+                      <h4 className="card-title mb-0">
+                        {disqualify_applicant}
+                      </h4>
                     </div>
                   </div>
                 </Col>
@@ -136,7 +141,7 @@ const Dashboard = () => {
               </Card.Subtitle>
             </Card.Header>
             <Card.Body>
-              <BarVer />
+              <BarVer jobSummary={job_summary} />
             </Card.Body>
           </Card>
         </Col>
@@ -151,7 +156,7 @@ const Dashboard = () => {
               </Card.Subtitle>
             </Card.Header>
             <Card.Body>
-              <BarHor />
+              <BarHor lengthOfWork={length_of_work} />
             </Card.Body>
           </Card>
         </Col>
