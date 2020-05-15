@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { ListGroup, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { parseCookies, destroyCookie } from "nookies";
+import { parseCookies } from "nookies";
 
 import * as actions from "../../store/actions";
 import cron from "node-cron";
@@ -42,14 +42,10 @@ const Sidebar = ({ children }) => {
     if (access_token) {
       onGetUser(access_token);
     }
-  }, [tkn]);
+  }, [tkn, parseCookies]);
 
   const logoutHandler = () => {
-    setTkn();
     onLogout();
-    window.location.reload("/");
-    destroyCookie(null, "access_token");
-    destroyCookie(null, "refresh_token");
   };
 
   return (

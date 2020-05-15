@@ -15,7 +15,7 @@ const linkJob = {
   link: { value: "", isValid: true, message: "" },
 };
 
-const JobsContainer = () => {
+export const JobsContainer = () => {
   const dispatch = useDispatch();
   const [linkjob, setLinkjob] = useState(linkJob);
 

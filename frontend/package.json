@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
@@ -17,9 +18,12 @@
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
     "cookie-parser": "^1.4.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "express": "^4.17.1",
     "framer-motion": "^1.10.3",
     "html-react-parser": "^0.10.3",
+    "jest": "^26.0.1",
     "jquery": "^3.5.0",
     "next": "9.3.6",
     "next-redux-wrapper": "^6.0.0-rc.8",
@@ -33,6 +37,7 @@
     "react-pdf": "^4.1.0",
     "react-redux": "^7.2.0",
     "react-spinners": "^0.8.3",
+    "react-test-renderer": "^16.13.1",
     "react-tooltip": "^4.2.5",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
