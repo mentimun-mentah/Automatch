@@ -68,7 +68,16 @@ class ConfirmUser(Resource):
         if not confirmation.token_is_expired:
             confirmation.activated = True
             confirmation.save_to_db()
-            return {"message":f"Your email {confirmation.user.email} has been activated"}, 200
+            # set access token
+            access_token = create_access_token(identity=confirmation.user.id,fresh=True)
+            refresh_token = create_refresh_token(identity=confirmation.user.id)
+            # encode jti token to store database redis
+            access_jti = get_jti(encoded_token=access_token)
+            refresh_jti = get_jti(encoded_token=refresh_token)
+            # store to database redis
+            revoked_store.set(access_jti, 'false', _ACCESS_EXPIRES)
+            revoked_store.set(refresh_jti, 'false', _REFRESH_EXPIRES)
+            return {"access_token": access_token,"refresh_token": refresh_token,"username": confirmation.user.username}, 200
         return {"message":"Upps token expired, you can resend email confirm again"}, 400
 
 class ResendEmail(Resource):
