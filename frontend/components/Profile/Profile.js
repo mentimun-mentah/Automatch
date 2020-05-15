@@ -275,7 +275,7 @@ const Profile = ({ image, imageHandler }) => {
   if (image && image.includes("blob:")) {
     avatar = image;
   } else if (image) {
-    avatar = `http://localhost:5000/static/avatars/${image}`;
+    avatar = `${process.env.apiURL}/static/avatars/${image}`;
   }
 
   const { username, company_name, company_site, position } = profile;

@@ -76,6 +76,7 @@ export const getUser = (access_token) => {
 export const logout = (ctx) => {
   return (dispatch) => {
     const { access_token } = cookie.get(ctx);
+    console.log("logout access_token => ", access_token);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     if (access_token) {
       axios
