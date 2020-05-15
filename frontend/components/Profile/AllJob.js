@@ -20,7 +20,6 @@ const AllJobs = () => {
 
   useEffect(() => {
     onSearchJob(active, enteredFilter);
-    console.log(active);
   }, [onSearchJob, active, enteredFilter]);
 
   const pageHandler = (event) => {
@@ -35,14 +34,12 @@ const AllJobs = () => {
 
   let pagination = [];
   for (let n = 1; n <= iter_pages.length; n++) {
+    let click = pageHandler;
+    if (n === +active) {
+      click = null;
+    }
     pagination.push(
-      <Pagination.Item
-        key={n}
-        active={n === +active}
-        text={+n}
-        onClick={n !== active && pageHandler}
-        activeLabel
-      >
+      <Pagination.Item key={n} active={n === +active} text={+n} onClick={click}>
         {n}
       </Pagination.Item>
     );
