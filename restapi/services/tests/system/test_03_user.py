@@ -65,7 +65,9 @@ class UserTest(BaseTest):
         user = Users.query.filter_by(username="asd").first()
         with self.app() as client:
             res = client.get('/user-confirm/{}'.format(user.confirmation.id))
-            self.assertIn('has been activated',json.loads(res.data)['message'])
+            self.assertIn('access_token',json.loads(res.data).keys())
+            self.assertIn('refresh_token',json.loads(res.data).keys())
+            self.assertIn('username',json.loads(res.data).keys())
             # check already activated
             res = client.get('/user-confirm/{}'.format(user.confirmation.id))
             self.assertEqual('Your account already activated.',json.loads(res.data)['message'])
