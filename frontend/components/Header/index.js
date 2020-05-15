@@ -86,7 +86,7 @@ const Header = React.memo(() => {
         alignRight
         title={
           <img
-            src={user && `http://localhost:5000/static/avatars/${user.avatar}`}
+            src={user && `${process.env.apiURL}/static/avatars/${user.avatar}`}
             width="40"
             height="40"
             className="rounded-circle"

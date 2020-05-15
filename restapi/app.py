@@ -29,4 +29,4 @@ api.add_resource(Applicants.QualifyApplicant,'/applicant/qualify/<int:id>')
 api.add_resource(Applicants.ScrapeApplicants,'/scrape-applicants/<int:job_id>')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="192.168.18.37",port=5000)
