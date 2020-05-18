@@ -173,10 +173,8 @@ export const searchJob = (page, search, ctx) => {
   return (dispatch) => {
     const { access_token } = cookie.get(ctx);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
-    axios
-      .get(`/dashboard-user/jobs?page=${page}&q=${search}`, headerCfg)
-      .then((res) => {
-        dispatch(searchJobSuccess(res.data));
-      });
+    axios.get(`/dashboard-user/jobs?page=${page}&q=${search}`, headerCfg).then((res) => {
+      dispatch(searchJobSuccess(res.data));
+    });
   };
 };

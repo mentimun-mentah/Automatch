@@ -77,8 +77,7 @@ const Signin = (props) => {
 
   let buttonValid = true;
   for (let key in signin) {
-    buttonValid =
-      signin[key].isValid && buttonValid && signin[key].value && buttonValid;
+    buttonValid = signin[key].isValid && buttonValid && signin[key].value && buttonValid;
   }
 
   const inputHandler = (event) => {
@@ -142,14 +141,9 @@ const Signin = (props) => {
       <Container>
         <Row className="justify-content-md-center">
           <Col>
-            <h2 className={`${`text-center`} ${style.ff_yeseva}`}>
-              Welcome Recruiters.
-            </h2>
+            <h2 className={`${`text-center`} ${style.ff_yeseva}`}>Welcome Recruiters.</h2>
             <p className="text-center text-muted lh-15">
-              <small>
-                Sign in to start Recruiting hundred of workers more easier,
-                faster and more accurate.
-              </small>
+              <small>Sign in to start Recruiting hundred of workers more easier, faster and more accurate.</small>
             </p>
           </Col>
         </Row>
@@ -161,18 +155,8 @@ const Signin = (props) => {
                 Email Address
               </Form.Label>
               <Col sm="8">
-                <Form.Control
-                  className={emailInvalid}
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  onChange={inputHandler}
-                />
-                {email.message && (
-                  <small className="form-text text-muted mt-0 mb-n2">
-                    {email.message}
-                  </small>
-                )}
+                <Form.Control className={emailInvalid} type="email" name="email" placeholder="Email Address" onChange={inputHandler} />
+                {email.message && <small className="form-text text-muted mt-0 mb-n2">{email.message}</small>}
               </Col>
             </Form.Group>
 
@@ -181,36 +165,12 @@ const Signin = (props) => {
                 Password
               </Form.Label>
               <Col sm="8">
-                <Form.Control
-                  className={passwordInvalid}
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={inputHandler}
-                />
-                {password.message && (
-                  <small className="form-text text-muted mt-0 mb-n2">
-                    {password.message}
-                  </small>
-                )}
+                <Form.Control className={passwordInvalid} type="password" name="password" placeholder="Password" onChange={inputHandler} />
+                {password.message && <small className="form-text text-muted mt-0 mb-n2">{password.message}</small>}
               </Col>
             </Form.Group>
-            <Button
-              type="submit"
-              variant="primary"
-              block
-              className="mt-3 mb-3"
-              disabled={!buttonValid}
-            >
-              Login{" "}
-              {loading && (
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  aria-hidden="true"
-                />
-              )}
+            <Button type="submit" variant="primary" block className="mt-3 mb-3" disabled={!buttonValid}>
+              Login {loading && <Spinner as="span" animation="border" size="sm" aria-hidden="true" />}
             </Button>
           </Form>
         </Col>
@@ -218,23 +178,14 @@ const Signin = (props) => {
         <Row className="justify-content-md-center">
           <Col>
             <p className="text-center text-muted lh-15">
+              <small>To make Automatch work, we log user data and share it with service providers. Click </small>
               <small>
-                To make Automatch work, we log user data and share it with
-                service providers. Click{" "}
-              </small>
-              <small>
-                <span
-                  className={`${`text-info`} ${style.hov_pointer} `}
-                  onClick={switchToSignup}
-                >
+                <span className={`${`text-info`} ${style.hov_pointer} `} onClick={switchToSignup}>
                   {" "}
                   “Sign Up”{" "}
                 </span>
               </small>
-              <small>
-                above to accept Automatch’s Terms of Service &amp; Privacy
-                Policy.
-              </small>
+              <small>above to accept Automatch’s Terms of Service &amp; Privacy Policy.</small>
             </p>
           </Col>
         </Row>

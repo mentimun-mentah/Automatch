@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 
 import * as actions from "../../store/actions";
 import JobsData from "./JobsData";
+import EmptyJobs from "./EmptyJobs";
 
 const AllJobs = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,7 @@ const AllJobs = () => {
   const [enteredFilter, setEnteredFilter] = useState("");
   const [active, setActive] = useState(page);
 
-  const onSearchJob = useCallback(
-    (page, search) => dispatch(actions.searchJob(page, search)),
-    [dispatch]
-  ); // SEARCH JOBS
+  const onSearchJob = useCallback((page, search) => dispatch(actions.searchJob(page, search)), [dispatch]); // SEARCH JOBS
 
   useEffect(() => {
     onSearchJob(active, enteredFilter);
@@ -45,8 +43,8 @@ const AllJobs = () => {
     );
   }
 
-  let jobsData = null;
-  if (data) {
+  let jobsData = <EmptyJobs />;
+  if (data && data.length > 0) {
     jobsData = data.map((job, i) => (
       <JobsData
         key={i}
@@ -97,17 +95,11 @@ const AllJobs = () => {
           </div>
           {iter_pages.length > 1 && (
             <Pagination>
-              <Pagination.Prev
-                onClick={prevHandler}
-                disabled={prev_num === null}
-              >
+              <Pagination.Prev onClick={prevHandler} disabled={prev_num === null}>
                 Previous
               </Pagination.Prev>
               {pagination}
-              <Pagination.Next
-                onClick={nextHandler}
-                disabled={next_num === null}
-              >
+              <Pagination.Next onClick={nextHandler} disabled={next_num === null}>
                 Next
               </Pagination.Next>
             </Pagination>
