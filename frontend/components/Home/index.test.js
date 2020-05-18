@@ -8,4 +8,9 @@ describe("Component <Home />", () => {
     const wrapper = shallow(<Home />);
     expect(wrapper.find(Pricing)).toHaveLength(1);
   });
+
+  it("should have 5 pricing items", () => {
+    const wrapper = shallow(<Pricing />);
+    expect(wrapper.find("pricing"));
+  });
 });

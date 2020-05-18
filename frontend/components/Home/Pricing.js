@@ -53,29 +53,12 @@ const Pricing = () => {
   const pricing = useState(pricingState)[0];
   return pricing.map((priceList) => (
     <Col key={priceList.title}>
-      <div
-        className={"card text-center rounded shadow " + priceList.bg}
-        style={{ width: "13rem" }}
-      >
-        <div
-          className={priceList.bestValue ? "card-body card-price" : "card-body"}
-        >
-          {priceList.bestValue ? (
-            <div className="ribbon">Best Value</div>
-          ) : null}
-          <img
-            src={priceList.image}
-            width="45"
-            height="38"
-            className="rounded mx-auto d-block"
-            alt={priceList.title}
-          />
-          <h5 className="card-title font-weight-bold text-center mt-3 text-blue-dark">
-            {priceList.title}
-          </h5>
-          <p className="card-text font-weight-bold text-blue-dark h4">
-            IDR {priceList.price}
-          </p>
+      <div className={"card text-center rounded shadow " + priceList.bg} style={{ width: "13rem" }}>
+        <div className={priceList.bestValue ? "card-body card-price" : "card-body"}>
+          {priceList.bestValue ? <div className="ribbon">Best Value</div> : null}
+          <img src={priceList.image} width="45" height="38" className="rounded mx-auto d-block" alt={priceList.title} />
+          <h5 className="card-title font-weight-bold text-center mt-3 text-blue-dark">{priceList.title}</h5>
+          <p className="card-text font-weight-bold text-blue-dark h4">IDR {priceList.price}</p>
           <p className="card-text">per month</p>
           <hr />
           <p className="card-text mb-0">{priceList.job}</p>
