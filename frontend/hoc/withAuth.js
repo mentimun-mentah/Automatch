@@ -30,9 +30,7 @@ const withAuth = (WrappedComponent) => {
     static async getInitialProps(context) {
       const access_token = authenticate(context);
 
-      const componentProps =
-        WrappedComponent.getInitialProps &&
-        (await WrappedComponent.getInitialProps(context));
+      const componentProps = WrappedComponent.getInitialProps && (await WrappedComponent.getInitialProps(context));
 
       return { ...componentProps, access_token };
     }

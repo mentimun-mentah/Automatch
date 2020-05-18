@@ -9,8 +9,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const apiURL = "http://192.168.18.37:5000/";
-  const baseURL = "http://192.168.18.37:3000/";
+  const apiURL = "http://127.0.0.1:5000/";
+  const baseURL = "http://localhost:3000/";
   const server = express();
   server.use(cookieParser("automatch"));
 

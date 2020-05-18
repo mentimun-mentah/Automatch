@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { ListGroup, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { parseCookies } from "nookies";
 
 import * as actions from "../../store/actions";
 import cron from "node-cron";
@@ -9,11 +8,12 @@ import Link from "next/link";
 
 const Sidebar = ({ children }) => {
   const dispatch = useDispatch();
-  const [tkn, setTkn] = useState();
 
   const onLogout = () => dispatch(actions.logout());
   const refresh_token = useSelector((state) => state.auth.refresh_token);
+  const access_token = useSelector((state) => state.auth.access_token);
   const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
+  const onTryAutoSignin = useCallback(() => dispatch(actions.authCheckState()), [dispatch]);
 
   const user = useSelector((state) => state.auth.user);
 
@@ -27,22 +27,15 @@ const Sidebar = ({ children }) => {
     task.start();
   }
 
-  const onTryAutoSignin = useCallback(
-    () => dispatch(actions.authCheckState()),
-    [dispatch]
-  );
-
   useEffect(() => {
     onTryAutoSignin();
   }, [onTryAutoSignin]);
 
   useEffect(() => {
-    const { access_token } = parseCookies();
-    setTkn(access_token);
     if (access_token) {
       onGetUser(access_token);
     }
-  }, [tkn, parseCookies]);
+  }, [access_token]);
 
   const logoutHandler = () => {
     onLogout();
@@ -54,13 +47,7 @@ const Sidebar = ({ children }) => {
         <nav className="col-md-2 d-none d-md-block bg-light sidebar">
           <div className="sidebar-sticky pt-0 pl-3 pr-3">
             <div className="sidebar-heading">
-              <img
-                src="/static/images/logo-navbar-white.png"
-                className="rounded d-block mx-auto"
-                width="130"
-                height="35"
-                alt="automatch"
-              />
+              <img src="/static/images/logo-navbar-white.png" className="rounded d-block mx-auto" width="130" height="35" alt="automatch" />
             </div>
             <ListGroup variant="flush">
               <Link href="/" as="/">
@@ -84,18 +71,13 @@ const Sidebar = ({ children }) => {
       </div>
 
       <div id="page-content-wrapper" className="main-dashboard">
-        <Navbar
-          expand="lg"
-          className="border-bottom bg-white navbar-profile mb-3"
-        >
+        <Navbar expand="lg" className="border-bottom bg-white navbar-profile mb-3">
           <Navbar.Brand href="#">Dashboard</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               <NavDropdown title={user.username} alignRight>
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

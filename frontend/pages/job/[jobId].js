@@ -24,37 +24,12 @@ const Detail = () => {
   const profile = useSelector((state) => state.applicants.getApplicant);
   const jobData = useSelector((state) => state.jobs.jobData);
   const applicants = useSelector((state) => state.jobs.jobData.applicants);
-  const {
-    id,
-    image,
-    title_job,
-    company,
-    location,
-    posted,
-    concepts,
-    contents,
-    keywords,
-  } = jobData;
+  const { id, image, title_job, company, location, posted, concepts, contents, keywords } = jobData;
 
-  const onScrapingApplicants = useCallback(
-    (url, jobId) => dispatch(actions.applicantScraping(url, jobId)),
-    [dispatch]
-  ); // Scraping
-
-  const onGetApplicant = useCallback(
-    (id) => dispatch(actions.getApplicant(id)),
-    [dispatch]
-  ); //View Profile
-
-  const onDeleteApplicant = useCallback(
-    (id_app, jobId) => dispatch(actions.deleteApplicant(id_app, jobId)),
-    [dispatch]
-  ); //Delete applicant
-
-  const onQualifyApplicant = useCallback(
-    (id_app, jobId) => dispatch(actions.qualifyApplicant(id_app, jobId)),
-    [dispatch]
-  ); //Delete applicant
+  const onScrapingApplicants = useCallback((url, jobId) => dispatch(actions.applicantScraping(url, jobId)), [dispatch]); // Scraping
+  const onGetApplicant = useCallback((id) => dispatch(actions.getApplicant(id)), [dispatch]); //View Profile
+  const onDeleteApplicant = useCallback((id_app, jobId) => dispatch(actions.deleteApplicant(id_app, jobId)), [dispatch]); //Delete applicant
+  const onQualifyApplicant = useCallback((id_app, jobId) => dispatch(actions.qualifyApplicant(id_app, jobId)), [dispatch]); //Delete applicant
 
   //Scraping
   const linkChangeHandler = (event) => {
@@ -144,13 +119,7 @@ const Detail = () => {
   }
 
   let candidates = (
-    <Candidates
-      submit={applicantScrapingHandler}
-      change={linkChangeHandler}
-      value={linkApplicant}
-      validLink={validLink}
-      jobId={id}
-    >
+    <Candidates submit={applicantScrapingHandler} change={linkChangeHandler} value={linkApplicant} validLink={validLink} jobId={id}>
       {dataCandidate}
     </Candidates>
   );

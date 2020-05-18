@@ -9,24 +9,11 @@ import * as actions from "../../store/actions";
 import BadgePlaceholder from "../Transition/Spinner/BadgePlaceholder";
 import parse from "html-react-parser";
 
-const DetailJob = ({
-  jobId,
-  image,
-  title_job,
-  company,
-  location,
-  posted,
-  contents,
-  concepts,
-  keywords,
-  children,
-}) => {
+const DetailJob = ({ jobId, image, title_job, company, location, posted, contents, concepts, keywords, children }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.jobs.loading);
 
-  const onGetCk = (jobId, access_token) =>
-    dispatch(actions.getCk(jobId, access_token));
-
+  const onGetCk = (jobId, access_token) => dispatch(actions.getCk(jobId, access_token));
   const onDeleteJob = (jobId) => dispatch(actions.deleteJob(jobId));
 
   useEffect(() => {
@@ -79,11 +66,7 @@ const DetailJob = ({
                 <i className="far fa-clock mr-2"></i>
                 {posted}
               </p>
-              <button
-                type="button"
-                className="btn btn-outline-danger badge-pill"
-                onClick={() => onDeleteJob(jobId)}
-              >
+              <button type="button" className="btn btn-outline-danger badge-pill" onClick={() => onDeleteJob(jobId)}>
                 <i className="fal fa-times-circle mr-1"></i>Delete job
               </button>
             </div>

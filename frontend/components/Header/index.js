@@ -70,11 +70,7 @@ const Header = React.memo(() => {
 
   let auth = (
     <Form inline>
-      <Button
-        variant="primary"
-        className="rounded-pill mr-sm-3"
-        onClick={showModalHandler}
-      >
+      <Button variant="primary" className="rounded-pill mr-sm-3" onClick={showModalHandler}>
         Sign up
       </Button>
     </Form>
@@ -106,11 +102,7 @@ const Header = React.memo(() => {
           </NavDropdown.Item>
         </Link>
         <Link href="/logout">
-          <NavDropdown.Item
-            className="text-hvr-none"
-            as="span"
-            onClick={logoutHandler}
-          >
+          <NavDropdown.Item className="text-hvr-none" as="span" onClick={logoutHandler}>
             Logout
           </NavDropdown.Item>
         </Link>
@@ -120,20 +112,12 @@ const Header = React.memo(() => {
 
   return (
     <>
-      <Navbar
-        expand="lg"
-        fixed="top"
-        className={isTop ? "navbar-default" : "navbar-scrolled"}
-      >
+      <Navbar expand="lg" fixed="top" className={isTop ? "navbar-default" : "navbar-scrolled"}>
         <Container>
           <Navbar.Brand>
             <Link href="/" as="/">
               <img
-                src={
-                  isTop
-                    ? "/static/images/logo-navbar-white.png"
-                    : "/static/images/logo-navbar.png"
-                }
+                src={isTop ? "/static/images/logo-navbar-white.png" : "/static/images/logo-navbar.png"}
                 width="160"
                 height="40"
                 className="d-inline-block align-top"
@@ -185,26 +169,14 @@ const Header = React.memo(() => {
                 <div className="bar right delay1"></div>
                 <div className="bar bottom delay2"></div>
                 <div className="bar left"></div>
-                <Modal.Header
-                  className="border-0 pb-0 ml-auto"
-                  closeButton
-                  onClick={closeModalHandler}
-                ></Modal.Header>
+                <Modal.Header className="border-0 pb-0 ml-auto" closeButton onClick={closeModalHandler}></Modal.Header>
                 <div className="col-md-8 mx-auto">
                   <Modal.Body>
                     <AnimatePresence exitBeforeEnter key={changeView}>
                       {changeView ? (
-                        <Signin
-                          viewed={changeViewHandler}
-                          view={changeView}
-                          closed={closeModalHandler}
-                        />
+                        <Signin viewed={changeViewHandler} view={changeView} closed={closeModalHandler} />
                       ) : (
-                        <Signup
-                          viewed={changeViewHandler}
-                          view={changeView}
-                          closed={closeModalHandler}
-                        />
+                        <Signup viewed={changeViewHandler} view={changeView} closed={closeModalHandler} />
                       )}
                     </AnimatePresence>
                   </Modal.Body>
@@ -216,13 +188,7 @@ const Header = React.memo(() => {
       </AnimatePresence>
       <AnimatePresence exitBeforeEnter>
         {modalShow ? (
-          <motion.div
-            className="modal-backdrop fade show"
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={BackdropModal}
-          ></motion.div>
+          <motion.div className="modal-backdrop fade show" initial="initial" animate="in" exit="out" variants={BackdropModal}></motion.div>
         ) : null}
       </AnimatePresence>
 
@@ -253,10 +219,7 @@ const Header = React.memo(() => {
         :global(.dropdown-menu) {
           padding: 0.5rem !important;
         }
-        :global(.nav-item
-            .show
-            .dropdown-menu
-            .dropdown-item, .dropdown-item:hover) {
+        :global(.nav-item .show .dropdown-menu .dropdown-item, .dropdown-item:hover) {
           background-color: #113951;
           color: #ffffff;
           cursor: pointer;
