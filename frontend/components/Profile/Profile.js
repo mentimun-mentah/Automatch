@@ -141,7 +141,7 @@ const Profile = ({ image, imageHandler }) => {
   const saveProfileHandler = (event) => {
     event.preventDefault();
     resetValidation();
-    if (profileIsValid) {
+    if (profileIsValid()) {
       const data = {
         username: profile.username.value,
         company_name: profile.company_name.value,
@@ -253,9 +253,7 @@ const Profile = ({ image, imageHandler }) => {
       new_password.message = "New Password at least 6 characters";
       isGood = false;
     }
-    if (
-      !validator.isLength(confirm_password.value, { min: 6, max: undefined })
-    ) {
+    if (!validator.isLength(confirm_password.value, { min: 6, max: undefined })) {
       confirm_password.isValid = false;
       confirm_password.message = "Confirm Password at least 6 characters";
       isGood = false;
@@ -330,9 +328,7 @@ const Profile = ({ image, imageHandler }) => {
                       value={username.value}
                     />
                     {!username.isValid && (
-                      <small className="form-text text-muted mt-0 mb-n2">
-                        {username.message}
-                      </small>
+                      <small className="form-text text-muted mt-0 mb-n2">{username.message}</small>
                     )}
                   </Form.Group>
                   <Form.Group as={Col}>
@@ -362,9 +358,7 @@ const Profile = ({ image, imageHandler }) => {
                       value={position.value}
                     />
                     {!position.isValid && (
-                      <small className="form-text text-muted mt-0 mb-n2">
-                        {position.message}
-                      </small>
+                      <small className="form-text text-muted mt-0 mb-n2">{position.message}</small>
                     )}
                   </Form.Group>
                   <Form.Group as={Col}>
@@ -416,9 +410,7 @@ const Profile = ({ image, imageHandler }) => {
                     value={password.value}
                   />
                   {!password.isValid && (
-                    <small className="form-text text-muted mt-0 mb-n2">
-                      {password.message}
-                    </small>
+                    <small className="form-text text-muted mt-0 mb-n2">{password.message}</small>
                   )}
                 </Form.Group>
                 <Row className="row-cols-2 mt-4">
