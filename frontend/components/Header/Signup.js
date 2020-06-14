@@ -63,8 +63,7 @@ const Signin = (props) => {
 
   let buttonValid = true;
   for (let key in signup) {
-    buttonValid =
-      signup[key].isValid && buttonValid && signup[key].value && buttonValid;
+    buttonValid = signup[key].isValid && buttonValid && signup[key].value && buttonValid;
   }
 
   const inputHandler = (event) => {
@@ -148,13 +147,11 @@ const Signin = (props) => {
       <Container>
         <Row className="justify-content-md-center">
           <Col>
-            <h2 className={`text-center ${style.ff_yeseva}`}>
-              Welcome Recruiters.
-            </h2>
+            <h2 className={`text-center ${style.ff_yeseva}`}>Welcome Recruiters.</h2>
             <p className="text-center text-muted lh-15">
               <small>
-                Register as company to start Recruiting hundred of workers more
-                easier, faster and more accurate.
+                Register as company to start Recruiting hundred of workers more easier, faster and
+                more accurate.
               </small>
             </p>
           </Col>
@@ -175,9 +172,7 @@ const Signin = (props) => {
                     value={username.value}
                   />
                   {!username.isValid && (
-                    <small className="form-text text-muted mt-0 mb-n2">
-                      {username.message}
-                    </small>
+                    <small className="form-text text-muted mt-0 mb-n2">{username.message}</small>
                   )}
                 </Form.Group>
 
@@ -192,9 +187,7 @@ const Signin = (props) => {
                     value={email.value}
                   />
                   {!email.isValid && (
-                    <small className="form-text text-muted mt-0 mb-n2">
-                      {email.message}
-                    </small>
+                    <small className="form-text text-muted mt-0 mb-n2">{email.message}</small>
                   )}
                 </Form.Group>
 
@@ -209,9 +202,7 @@ const Signin = (props) => {
                     value={password.value}
                   />
                   {!password.isValid && (
-                    <small className="form-text text-muted mt-0 mb-n2">
-                      {password.message}
-                    </small>
+                    <small className="form-text text-muted mt-0 mb-n2">{password.message}</small>
                   )}
                 </Form.Group>
 
@@ -240,14 +231,7 @@ const Signin = (props) => {
                 disabled={!buttonValid}
               >
                 Register{" "}
-                {loading && (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    aria-hidden="true"
-                  />
-                )}
+                {loading && <Spinner as="span" animation="border" size="sm" aria-hidden="true" />}
               </Button>
             </Form.Row>
           </Form>
@@ -257,22 +241,15 @@ const Signin = (props) => {
           <Col>
             <p className="text-center text-muted lh-15">
               <small>
-                To make Automatch work, we log user data and share it with
-                service providers. Click{" "}
+                To make Automatch work, we log user data and share it with service providers. Click{" "}
               </small>
               <small>
-                <span
-                  className={`${`text-info`} ${style.hov_pointer} `}
-                  onClick={switchToSignin}
-                >
+                <span className={`${`text-info`} ${style.hov_pointer} `} onClick={switchToSignin}>
                   {" "}
                   “Sign in”{" "}
                 </span>
               </small>
-              <small>
-                above to accept Automatch’s Terms of Service &amp; Privacy
-                Policy.
-              </small>
+              <small>above to accept Automatch’s Terms of Service &amp; Privacy Policy.</small>
             </p>
           </Col>
         </Row>

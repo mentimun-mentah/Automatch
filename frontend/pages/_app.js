@@ -15,10 +15,7 @@ const App = ({ Component, pageProps, store }) => {
       <Component {...pageProps} />
     </Layout>
   );
-  if (
-    router.pathname === "/profile/[user]" ||
-    router.pathname === "/profile/dashboard"
-  ) {
+  if (router.pathname === "/profile/[user]" || router.pathname === "/profile/dashboard") {
     layout = (
       <Profile>
         <Component {...pageProps} />
@@ -56,9 +53,7 @@ const App = ({ Component, pageProps, store }) => {
 App.getInitialProps = async ({ Component, ctx }) => {
   const { access_token } = cookie.get(ctx);
   ctx.store.dispatch(actions.getUser(access_token));
-  const pageProps = Component.getInitialProps
-    ? await Component.getInitialProps(ctx)
-    : {};
+  const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
   return { pageProps };
 };
