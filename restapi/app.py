@@ -3,11 +3,6 @@ from services.resources import Users
 from services.resources import Jobs
 from services.resources import Applicants
 
-@app.route('/test')
-def test():
-    return "work test"
-
-
 api.add_resource(Users.GetUser,'/user')
 api.add_resource(Users.RegisterUser,'/register')
 api.add_resource(Users.LoginUser,'/login')

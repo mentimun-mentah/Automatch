@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    apiURL: "http://127.0.0.1:5000/",
-    baseURL: "http://localhost:3000/",
-  },
+    apiURL: process.env.apiURL,
+    baseURL: process.env.baseURL
+  }
 };

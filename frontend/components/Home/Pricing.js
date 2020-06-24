@@ -63,7 +63,7 @@ const Pricing = () => {
           <hr />
           <p className="card-text mb-0">{priceList.job}</p>
           <p className="card-text">{priceList.profile}</p>
-          <a href="*" className="btn btn-hover btn-seconddark rounded-pill">
+          <a href="#" className="btn btn-hover btn-seconddark rounded-pill" onClick={(e) => e.preventDefault()}>
             Subscribe
           </a>
         </div>
