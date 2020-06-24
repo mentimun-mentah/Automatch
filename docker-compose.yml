@@ -1,0 +1,54 @@
+version: "3.8"
+services: 
+  backend:
+    build: 
+      context: ./restapi
+      dockerfile: Dockerfile
+    restart: always
+    environment: 
+      - FLASK_APP=app.py
+    volumes: 
+      - "/app/migrations"
+      - "./restapi:/app"
+    ports: 
+      - "5001:5000"
+    depends_on: 
+      - postgres
+      - pgadmin4
+      - redis-server
+      - chrome
+  selenium-hub:
+    restart: always
+    image: selenium/hub:3.141.59-20200525
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+  chrome:
+    restart: always
+    image: selenium/node-chrome:3.141.59-20200525
+    ports:
+      - "5900-5999:5900"
+    depends_on:
+      - selenium-hub
+    environment:
+      HUB_HOST: selenium-hub
+      HUB_PORT_4444_TCP_ADDR: selenium-hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      DBUS_SESSION_BUS_ADDRESS: "/dev/null"
+    links:
+      - selenium-hub:hub
+  postgres:
+    image: "postgres"
+    environment: 
+      - POSTGRES_DB=automatch
+      - POSTGRES_USER=automatch
+      - POSTGRES_PASSWORD=123
+  pgadmin4:
+    image: "dpage/pgadmin4"
+    ports: 
+      - "5437:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=oman@automatch.com
+      - PGADMIN_DEFAULT_PASSWORD=123
+  redis-server:
+    image: "redis"
