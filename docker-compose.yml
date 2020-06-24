@@ -47,3 +47,5 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=123
   redis-server:
     image: "redis"
+    sysctls:
+      - net.core.somaxconn=511
