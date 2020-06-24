@@ -36,7 +36,7 @@ class ProfileLinkedin:
             chromeOptions = webdriver.ChromeOptions()
             chromeOptions.add_argument("--headless")
             chromeOptions.add_argument("window-size=1366x768")
-            driver = webdriver.Chrome(options=chromeOptions,executable_path = os.path.join(_DIR_CHROME_DRIVER,'chromedriver_mac'))
+            driver = webdriver.Chrome(options=chromeOptions,executable_path = os.path.join(_DIR_CHROME_DRIVER,'chromedriver_linux'))
             setattr(threadLocal, 'driver', driver)
         self.driver = driver
 

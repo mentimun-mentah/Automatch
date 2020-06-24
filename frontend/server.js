@@ -9,8 +9,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const apiURL = "http://127.0.0.1:5000/";
-  const baseURL = "http://localhost:3000/";
+  const apiURL = process.env.apiURL;
+  const baseURL = process.env.baseURL;
   const server = express();
   server.use(cookieParser("automatch"));
 
@@ -19,7 +19,7 @@ app.prepare().then(() => {
     const { access_token, refresh_token } = req.params;
     res.cookie("access_token", access_token);
     res.cookie("refresh_token", refresh_token);
-    res.redirect(302, "http://localhost:3000/");
+    res.redirect(302, baseURL);
   });
 
   server.get("/user-confirm/:token", async (req, res) => {

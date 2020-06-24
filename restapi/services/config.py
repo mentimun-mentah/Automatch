@@ -14,7 +14,7 @@ class Config:
 
 class Development(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/Automatch'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:123@localhost:5432/Automatch'
 
 class Production(Config):
     DEBUG = False

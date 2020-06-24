@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { isAuth } from "../../hoc/withAuth";
 import { useDispatch, useSelector } from "react-redux";
+import {setCookie} from 'nookies'
 
 import * as actions from "../../store/actions";
 import axios from "../../store/axios-instance";
@@ -45,7 +46,6 @@ const Profile = ({ image, imageHandler }) => {
 
   const onGetUser = (access_token) => dispatch(actions.getUser(access_token));
   const onCheckState = () => dispatch(actions.authCheckState());
-  const onLogout = () => dispatch(actions.logout());
 
   const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
 
@@ -115,8 +115,11 @@ const Profile = ({ image, imageHandler }) => {
               dangerMode: true,
             }).then((willDelete) => {
               if (willDelete) {
+                setCookie(null, 'onLogout', true, {
+                  maxAge: 30 * 24 * 60 * 60,
+                  path: '/',
+                })
                 Router.replace("/");
-                onLogout();
               } else {
                 return;
               }

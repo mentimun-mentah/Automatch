@@ -96,25 +96,34 @@ export const applicantScraping = (url, jobId, ctx) => {
         dispatch(getJob(jobId));
       })
       .catch((error) => {
+        console.log(error.response)
         let urlError = "";
-        for (let key in error.response.data.url_applicants) {
-          urlError = error.response.data.url_applicants[key];
+        if(error.response && error.response.data){
+          for (let key in error.response.data.url_applicants) {
+            urlError = error.response.data.url_applicants[key];
+            console.log(urlError);
+          }
           console.log(urlError);
-        }
-        console.log(urlError);
-        dispatch(applicantScrapingFail(error.response));
-        swal({
-          icon: "error",
-          content: {
-            element: "p",
-            attributes: {
-              innerHTML: `${urlError}`,
+          dispatch(applicantScrapingFail(error.response));
+          swal({
+            icon: "error",
+            content: {
+              element: "p",
+              attributes: {
+                innerHTML: `${urlError}`,
+              },
             },
-          },
 
-          button: "Got it",
-          dangerMode: true,
-        });
+            button: "Got it",
+            dangerMode: true,
+          });
+        }
+        if(error.response && error.response.data.message){
+          swal({
+            icon: "error",
+            title: error.response.data.message,
+          })
+        }
         console.log("applicantScrapingFail => ", error.response);
       });
   };
@@ -189,7 +198,7 @@ export const getScoreApplicant = (jobId, ctx) => {
         dispatch(modalReset());
         if (res.data.message === "All applicant has been scored") {
           swal({
-            icon: "error",
+            icon: "success",
             text: "All applicant has been scored",
           });
         }

@@ -82,8 +82,20 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   }
 
   let btnExport = true;
+  let btnCalculate = true;
   for (let key in appBack) {
     btnExport = appBack[key].score !== 0 && btnExport;
+    if(typeof(appBack[key].score) === "number"){
+      console.log(typeof(appBack[key].score) === "number")
+      btnCalculate = false
+    }
+    if(appBack[key].score === 0){
+      btnCalculate = true
+    } 
+  }
+  if(appBack.length === 0){
+    btnCalculate = false
+    btnExport = false
   }
 
   return (
@@ -137,7 +149,7 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
           </AnimatePresence>
         </table>
       </div>
-      <Button variant="secondary" className="mr-2" onClick={showModalHandler}>
+      <Button variant="secondary" className="mr-2" onClick={showModalHandler} disabled={!btnCalculate}>
         <i className="far fa-sync mr-2"></i>Calculate!
       </Button>
 

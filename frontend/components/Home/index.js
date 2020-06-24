@@ -1,7 +1,6 @@
 import { Row, Col, NavLink, Table } from "react-bootstrap";
 import ReactTooltip from "react-tooltip";
 import Pricing from "./Pricing";
-import Link from "next/link";
 
 const Home = () => {
   return (
@@ -13,11 +12,9 @@ const Home = () => {
         </h1>
         <p className="text-center text-white">Sign up now to get started</p>
         <div className="text-center">
-          <Link href="/about" as="/about">
-            <a className="btn btn-primary mr-sm-3 rounded-pill ml-auto text-white">
-              Get Started
-            </a>
-          </Link>
+          <a className="btn btn-primary mr-sm-3 rounded-pill ml-auto text-white">
+            Get Started
+          </a>
         </div>
       </section>
       <section className="container">

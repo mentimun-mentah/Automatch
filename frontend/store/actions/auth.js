@@ -56,17 +56,13 @@ export const getUser = (access_token) => {
           dispatch(getUserSuccess(res.data));
         })
         .catch((err) => {
-          if (err.response.status === 422 || err.response.status === 401) {
+          if (err.response.status === 401) {
             console.log("error get user ==> ", err.response);
             cookie.destroy(null, "access_token");
             cookie.destroy(null, "refresh_token");
             dispatch(logout());
-            Router.reload("/");
-            swal({
-              title: "Uuppsss!",
-              text: "Invalid user credential, please re-login!",
-              icon: "error",
-            });
+            Router.replace("/");
+            Router.reload();
           }
         });
     }
@@ -76,7 +72,6 @@ export const getUser = (access_token) => {
 export const logout = (ctx) => {
   return (dispatch) => {
     const { access_token } = cookie.get(ctx);
-    console.log("logout access_token => ", access_token);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     if (access_token) {
       axios
@@ -84,6 +79,7 @@ export const logout = (ctx) => {
         .then(() => {
           dispatch(authlogout());
           ctx.res.writeHead(302, { Location: "/" });
+          ctx.res.end()
           window.location.reload("/");
           //Router.reload("/");
         })
