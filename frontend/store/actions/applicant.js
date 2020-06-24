@@ -205,7 +205,7 @@ export const getScoreApplicant = (jobId, ctx) => {
       })
       .catch((err) => {
         console.log("getScoreApplicantFail => ", err.response);
-        if (err.response.status === 422) {
+        if (err.response && err.response.status === 422) {
           dispatch(logout());
         }
         dispatch(getScoreApplicantFail());
@@ -245,6 +245,9 @@ export const searchApplicant = (search, jobId, ctx) => {
       .get(`/search-applicant/?s=${search}&job_id=${jobId}`, headerCfg)
       .then((res) => {
         dispatch(searchApplicantSuccess(res.data));
-      });
+      })
+      .catch((err) => {
+        console.log("searchApplicant catch => ",err.response)
+      })
   };
 };

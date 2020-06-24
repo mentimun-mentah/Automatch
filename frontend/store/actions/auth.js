@@ -56,7 +56,7 @@ export const getUser = (access_token) => {
           dispatch(getUserSuccess(res.data));
         })
         .catch((err) => {
-          if (err.response.status === 401) {
+          if (err.response && err.response.status === 401) {
             console.log("error get user ==> ", err.response);
             cookie.destroy(null, "access_token");
             cookie.destroy(null, "refresh_token");
@@ -171,6 +171,9 @@ export const searchJob = (page, search, ctx) => {
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
     axios.get(`/dashboard-user/jobs?page=${page}&q=${search}`, headerCfg).then((res) => {
       dispatch(searchJobSuccess(res.data));
-    });
+    })
+    .catch(err => {
+      console.log("searchJob catch => ", err.response)
+    })
   };
 };

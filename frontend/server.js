@@ -30,7 +30,10 @@ app.prepare().then(() => {
       res.cookie("name", response.data.username);
       res.cookie("fresh", true);
       res.redirect(302, baseURL);
-    });
+    })
+    .catch(err => {
+      console.log("error confirm server => ", err.response)
+    })
   });
 
   server.get("/export/:jobId", (req, res) => {

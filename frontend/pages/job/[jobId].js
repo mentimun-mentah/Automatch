@@ -187,12 +187,15 @@ const Detail = () => {
 };
 
 Detail.getInitialProps = async (ctx) => {
-  const { jobId } = ctx.query;
-  const { access_token } = cookie.get(ctx);
-  const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
-
-  let res = await axios.get(`/job/${jobId}`, headerCfg);
-  ctx.store.dispatch(actions.getJobSuccess(res.data));
+  try{
+    const { jobId } = ctx.query;
+    const { access_token } = cookie.get(ctx);
+    const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
+    let res = await axios.get(`/job/${jobId}`, headerCfg);
+    ctx.store.dispatch(actions.getJobSuccess(res.data));
+  } catch (err) {
+    console.log("error [jobId] => ", err.response)
+  }
 };
 
 export default withAuth(Detail);
