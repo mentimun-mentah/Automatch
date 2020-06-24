@@ -15,6 +15,7 @@ services:
       dockerfile: Dockerfile
     volumes: 
       - "/app/node_modules"
+      - "/app/.next"
       - "./frontend:/app"
   backend:
     build: 
