@@ -37,7 +37,7 @@ class ProfileLinkedin:
             chromeOptions.add_argument("--no-sandbox")
             chromeOptions.add_argument("--disable-dev-shm-usage")
             chromeOptions.add_argument("window-size=1366x768")
-            driver = webdriver.Chrome(options=chromeOptions,executable_path='/usr/local/bin/chromedriver_linux')
+            driver = webdriver.Chrome(options=chromeOptions,executable_path='/usr/local/bin/chromedriver')
             setattr(threadLocal, 'driver', driver)
         self.driver = driver
 
