@@ -8,7 +8,6 @@ from selenium.webdriver.common.by import By
 
 _LINKEDIN_EMAIL = os.getenv("LINKEDIN_EMAIl")
 _LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
-_DIR_CHROME_DRIVER = os.path.join(os.path.dirname(__file__),'chrome_driver/')
 
 class ProfileLinkedin:
     valid_scrape_url = True
@@ -35,8 +34,10 @@ class ProfileLinkedin:
         if driver is None:
             chromeOptions = webdriver.ChromeOptions()
             chromeOptions.add_argument("--headless")
+            chromeOptions.add_argument("--no-sandbox")
+            chromeOptions.add_argument("--disable-dev-shm-usage")
             chromeOptions.add_argument("window-size=1366x768")
-            driver = webdriver.Chrome(options=chromeOptions,executable_path = os.path.join(_DIR_CHROME_DRIVER,'chromedriver_linux'))
+            driver = webdriver.Chrome(options=chromeOptions,executable_path='/usr/local/bin/chromedriver')
             setattr(threadLocal, 'driver', driver)
         self.driver = driver
 

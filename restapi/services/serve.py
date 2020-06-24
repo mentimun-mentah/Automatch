@@ -23,7 +23,7 @@ api = Api(app)
 jwt = JWTManager(app)
 
 # connect database redis
-revoked_store = redis.Redis(host='localhost', port=6379, db=0,decode_responses=True)
+revoked_store = redis.Redis(host='redis-server', port=6379, db=0,decode_responses=True)
 
 @app.errorhandler(ValidationError)
 def error_handler(err):

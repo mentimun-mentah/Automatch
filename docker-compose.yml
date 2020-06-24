@@ -1,0 +1,49 @@
+version: "3.8"
+services: 
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - frontend
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes: 
+      - "/app/node_modules"
+      - "./frontend:/app"
+    ports: 
+      - "3001:3000"
+  backend:
+    build: 
+      context: ./restapi
+      dockerfile: Dockerfile
+    restart: always
+    volumes: 
+      - "/app/migrations"
+      - "./restapi:/app"
+    ports: 
+      - "5001:5000"
+    depends_on: 
+      - postgres
+      - pgadmin4
+      - redis-server
+  postgres:
+    image: "postgres"
+    environment: 
+      - POSTGRES_DB=automatch
+      - POSTGRES_USER=automatch
+      - POSTGRES_PASSWORD=123
+  pgadmin4:
+    image: "dpage/pgadmin4"
+    ports: 
+      - "5437:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=oman@automatch.com
+      - PGADMIN_DEFAULT_PASSWORD=123
+  redis-server:
+    image: "redis"
