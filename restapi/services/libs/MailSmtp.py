@@ -27,7 +27,7 @@ class MailSmtp:
 
         msg.attach(MIMEText(html,'html'))
         # Try to log in to server smtp
-        server = smtplib.SMTP_SSL(self.SMTP_SERVER,self.PORT)
+        server = smtplib.SMTP(self.SMTP_SERVER,self.PORT)
         try:
             server.login(self.EMAIL,self.PASSWORD)
             server.sendmail(self.EMAIL,email,msg.as_string())

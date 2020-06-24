@@ -1,14 +1,14 @@
-import threading, re, os
+import re, os
 from typing import List, Dict, Union
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 _LINKEDIN_EMAIL = os.getenv("LINKEDIN_EMAIl")
 _LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
-_DIR_CHROME_DRIVER = os.path.join(os.path.dirname(__file__),'chrome_driver/')
 
 class ProfileLinkedin:
     valid_scrape_url = True
@@ -30,15 +30,8 @@ class ProfileLinkedin:
         return check
 
     def get_driver(self) -> "ProfileLinkedin":
-        threadLocal = threading.local()
-        driver = getattr(threadLocal, 'driver', None)
-        if driver is None:
-            chromeOptions = webdriver.ChromeOptions()
-            chromeOptions.add_argument("--headless")
-            chromeOptions.add_argument("window-size=1366x768")
-            driver = webdriver.Chrome(options=chromeOptions,executable_path = os.path.join(_DIR_CHROME_DRIVER,'chromedriver_mac'))
-            setattr(threadLocal, 'driver', driver)
-        self.driver = driver
+        self.driver = webdriver.Remote(command_executor='http://hub:4444/wd/hub',
+                desired_capabilities=DesiredCapabilities.CHROME)
 
     def get_content(self) -> List[Dict[str,Union[str,Dict,List]]]:
         # setup driver

@@ -3,6 +3,11 @@ from services.resources import Users
 from services.resources import Jobs
 from services.resources import Applicants
 
+@app.route('/test')
+def test():
+    return "work test"
+
+
 api.add_resource(Users.GetUser,'/user')
 api.add_resource(Users.RegisterUser,'/register')
 api.add_resource(Users.LoginUser,'/login')
@@ -29,5 +34,4 @@ api.add_resource(Applicants.QualifyApplicant,'/applicant/qualify/<int:id>')
 api.add_resource(Applicants.ScrapeApplicants,'/scrape-applicants/<int:job_id>')
 
 if __name__ == '__main__':
-    #app.run(host="192.168.18.37",port=5000)
-    app.run()
+    app.run(host='0.0.0.0')
