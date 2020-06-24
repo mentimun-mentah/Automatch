@@ -16,8 +16,6 @@ services:
     volumes: 
       - "/app/node_modules"
       - "./frontend:/app"
-    ports: 
-      - "3001:3000"
   backend:
     build: 
       context: ./restapi
@@ -47,3 +45,5 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=123
   redis-server:
     image: "redis"
+    sysctls:
+      - net.core.somaxconn=511
