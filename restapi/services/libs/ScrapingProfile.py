@@ -258,7 +258,7 @@ class ProfileLinkedin:
         while scroll:
             try:
                 self.driver.execute_script(f"window.scrollTo(0, window.scrollY + {incr})")
-                WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@class='accordion-panel pv-profile-section pv-accomplishments-block honors ember-view']")))
+                WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@class='pv-profile-section pv-accomplishments-block honors ember-view']")))
                 scroll = False
             except Exception:
                 if incr > 600: scroll = False
@@ -266,7 +266,7 @@ class ProfileLinkedin:
 
         # get html honors
         try:
-            honor_raw = self.driver.find_element(By.XPATH,"//*[@class='accordion-panel pv-profile-section pv-accomplishments-block honors ember-view']").get_attribute('innerHTML')
+            honor_raw = self.driver.find_element(By.XPATH,"//*[@class='pv-profile-section pv-accomplishments-block honors ember-view']").get_attribute('innerHTML')
             soup = BeautifulSoup(honor_raw,"html.parser")
             # get honors
             honors = [element.text for element in soup.find_all("li",class_="pv-accomplishments-block__summary-list-item")]
@@ -278,7 +278,7 @@ class ProfileLinkedin:
         while scroll:
             try:
                 self.driver.execute_script(f"window.scrollTo(0, window.scrollY + {incr})")
-                WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@class='accordion-panel pv-profile-section pv-accomplishments-block languages ember-view']")))
+                WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@class='pv-profile-section pv-accomplishments-block languages ember-view']")))
                 scroll = False
             except Exception:
                 if incr > 700: scroll = False
@@ -286,7 +286,7 @@ class ProfileLinkedin:
 
         # get html languages
         try:
-            language_raw = self.driver.find_element(By.XPATH,"//*[@class='accordion-panel pv-profile-section pv-accomplishments-block languages ember-view']").get_attribute('innerHTML')
+            language_raw = self.driver.find_element(By.XPATH,"//*[@class='pv-profile-section pv-accomplishments-block languages ember-view']").get_attribute('innerHTML')
             soup = BeautifulSoup(language_raw,"html.parser")
             # get languages
             languages = [element.text for element in soup.find_all("li",class_="pv-accomplishments-block__summary-list-item")]
