@@ -15,7 +15,10 @@ services:
       dockerfile: Dockerfile
     volumes: 
       - "/app/node_modules"
+      - "/app/.next"
       - "./frontend:/app"
+    ports:
+      - "3001:3000"
   backend:
     build: 
       context: ./restapi
