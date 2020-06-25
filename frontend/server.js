@@ -9,8 +9,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const apiURL = process.env.apiURL;
   const baseURL = process.env.baseURL;
+  const apiSERVER = process.env.apiSERVER;
   const server = express();
   server.use(cookieParser("automatch"));
 
@@ -24,7 +24,7 @@ app.prepare().then(() => {
 
   server.get("/user-confirm/:token", async (req, res) => {
     const { token } = req.params;
-    await axios.get(`${apiURL}/user-confirm/${token}`).then((response) => {
+    await axios.get(`${apiSERVER}/user-confirm/${token}`).then((response) => {
       res.cookie("access_token", response.data.access_token);
       res.cookie("refresh_token", response.data.refresh_token);
       res.cookie("name", response.data.username);
