@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const refresh_token = useSelector((state) => state.auth.refresh_token);
 
-  const task = cron.schedule("10 * * * * *", () => {
+  const task = cron.schedule("*/13 * * * *", () => {
     dispatch(actions.refreshToken(refresh_token));
   });
   if (refresh_token === undefined) {

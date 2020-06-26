@@ -17,9 +17,9 @@ const JobsData = ({ id, create, jobTitle, qualify, candidates }) => {
       <td className="text-muted">Total candidate: {candidates}</td>
       <td className="text-muted">Qualified applicant: {qualify}</td>
       <td>
-        <Link href="/job/[jobId]" as={`/job/${id}`}>
+        <a href={`/job/${id}`}>
           <button className="btn btn-outline-info btn-sm">See Details</button>
-        </Link>
+        </a>
       </td>
     </motion.tr>
   );
