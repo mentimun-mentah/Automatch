@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../store/actions";
 import cookie from "nookies";
-import axios from "../../store/axios-instance";
+import axios from "axios";
 import User from "../../components/Profile/Profile";
 
 const Profile = () => {
@@ -46,7 +46,7 @@ Profile.getInitialProps = async (ctx) => {
   try{
     const { access_token } = cookie.get(ctx);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
-    let res = await axios.get(`/user`, headerCfg);
+    let res = await axios.get(`http://backend:5000/user`, headerCfg);
     ctx.store.dispatch(actions.getUserSuccess(res.data));
   } catch (err) {
     console.log("[user] => ", err.response)

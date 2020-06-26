@@ -3,7 +3,7 @@ import { withAuth } from "../../hoc/withAuth";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../store/actions";
-import axios from "../../store/axios-instance";
+import axios from "axios";
 import cookie from "nookies";
 import swal from "sweetalert";
 import validator from "validator";
@@ -191,7 +191,7 @@ Detail.getInitialProps = async (ctx) => {
     const { jobId } = ctx.query;
     const { access_token } = cookie.get(ctx);
     const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
-    let res = await axios.get(`/job/${jobId}`, headerCfg);
+    let res = await axios.get(`http://backend:5000/job/${jobId}`, headerCfg);
     ctx.store.dispatch(actions.getJobSuccess(res.data));
   } catch (err) {
     console.log("error [jobId] => ", err.response)

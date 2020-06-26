@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { withAuth } from "../hoc/withAuth";
 import * as actions from "../store/actions";
-import axios from "../store/axios-instance";
+import axios from "axios";
 import cookie from "nookies";
 import ExportPdf from "../components/DetailJob/Candidates/export";
 
@@ -22,7 +22,7 @@ pdf.getInitialProps = async (ctx) => {
   const { jobId } = ctx.query;
   const { access_token } = cookie.get(ctx);
   const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
-  let res = await axios.get(`/job/${jobId}`, headerCfg);
+  let res = await axios.get(`http://backend:5000/job/${jobId}`, headerCfg);
   ctx.store.dispatch(actions.getJobSuccess(res.data));
   } catch (err) {
     console.log("export catch => ", err.response)
