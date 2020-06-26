@@ -96,7 +96,7 @@ export const applicantScraping = (url, jobId, ctx) => {
         dispatch(getJob(jobId));
       })
       .catch((error) => {
-        console.log(error.response)
+        dispatch(applicantScrapingFail(error.response));
         let urlError = "";
         if(error.response && error.response.data){
           for (let key in error.response.data.url_applicants) {
@@ -119,12 +119,17 @@ export const applicantScraping = (url, jobId, ctx) => {
           });
         }
         if(error.response && error.response.data.message){
+          dispatch(applicantScrapingFail(error.response));
           swal({
             icon: "error",
             title: error.response.data.message,
           })
         }
-        console.log("applicantScrapingFail => ", error.response);
+        console.log("applicantScrapingFail => ", error);
+          swal({
+            icon: "error",
+            title: error,
+          })
       });
   };
 };

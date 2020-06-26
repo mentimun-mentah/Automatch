@@ -91,11 +91,11 @@ const Header = React.memo(() => {
           />
         }
       >
-        <Link href="/profile" as="/profile">
+        <a href="/profile/dashboard" className="text-decoration-none">
           <NavDropdown.Item className="text-hvr-none" as="span">
             Profile
           </NavDropdown.Item>
-        </Link>
+        </a>
         <Link href="/jobs" as="/jobs">
           <NavDropdown.Item className="text-hvr-none" as="span">
             Job List

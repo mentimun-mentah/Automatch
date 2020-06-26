@@ -31,9 +31,9 @@ const JobCard = ({ image, company, location, title_job, posted, jobId }) => {
             <span>{title_job}</span>
           </p>
           <p className="card-text text-muted">{posted}</p>
-          <Link href="/job/[jobId]" as={`/job/${jobId}`}>
-            <a className="btn btn-hover btn-seconddark rounded-pill">Process</a>
-          </Link>
+          <a href={`/job/${jobId}`}>
+            <span className="btn btn-hover btn-seconddark rounded-pill">Process</span>
+          </a>
         </div>
       </div>
       <style jsx>{`

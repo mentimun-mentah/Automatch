@@ -55,11 +55,11 @@ const Sidebar = ({ children }) => {
                   <i className="fas fa-arrow-left mr-2"></i> Home
                 </ListGroup.Item>
               </Link>
-              <Link href="/profile/dashboard" as="/profile/dashboard">
+              <a href="/profile/dashboard" className="text-decoration-none">
                 <ListGroup.Item action className="sidebar-item">
                   <i className="fal fa-chart-pie-alt mr-2"></i> Dashboard
                 </ListGroup.Item>
-              </Link>
+              </a >
               <Link href="/profile/[user]" as={`/profile/${user.username}`}>
                 <ListGroup.Item action className="sidebar-item">
                   <i className="fal fa-user mr-2"></i> User Profile

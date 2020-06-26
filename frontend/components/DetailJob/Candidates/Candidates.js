@@ -86,7 +86,6 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
   for (let key in appBack) {
     btnExport = appBack[key].score !== 0 && btnExport;
     if(typeof(appBack[key].score) === "number"){
-      console.log(typeof(appBack[key].score) === "number")
       btnCalculate = false
     }
     if(appBack[key].score === 0){
