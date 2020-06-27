@@ -233,10 +233,11 @@ class DashboardUser(Resource):
                 for exp in applicant.experiences:
                     length_work.append(exp.date_employed)
                 # calculate length work
-                try:
-                    start_work = int(length_work[-1].split(' ')[0])
-                except Exception:
-                    start_work = int(length_work[-1].split(' ')[1])
+                if length_work:
+                    try:
+                        start_work = int(length_work[-1].split(' ')[0])
+                    except Exception:
+                        start_work = int(length_work[-1].split(' ')[1])
                 total_work = int(datetime.now().strftime('%Y')) - start_work
                 applicant_work.append(total_work)
 
