@@ -78,7 +78,7 @@ class ProfileLinkedin:
                 WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@id='experience-section']")))
                 scroll = False
             except Exception:
-                if incr > 200: scroll = False
+                if incr > 300: scroll = False
                 incr += 100
 
         # get html experience
@@ -161,7 +161,7 @@ class ProfileLinkedin:
                 WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@id='education-section']")))
                 scroll = False
             except Exception:
-                if incr > 300: scroll = False
+                if incr > 400: scroll = False
                 incr += 100
 
         # get html education
@@ -210,7 +210,7 @@ class ProfileLinkedin:
                 WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@id='certifications-section']")))
                 scroll = False
             except Exception:
-                if incr > 400: scroll = False
+                if incr > 500: scroll = False
                 incr += 100
 
         # get html licenses
@@ -231,7 +231,7 @@ class ProfileLinkedin:
                 WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[contains(@class,'pv-profile-section pv-skill-categories-section artdeco-container-card')]")))
                 scroll = False
             except Exception:
-                if incr > 500: scroll = False
+                if incr > 600: scroll = False
                 incr += 100
 
         # check button expand
@@ -260,7 +260,7 @@ class ProfileLinkedin:
                 WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@class='pv-profile-section pv-accomplishments-block honors ember-view']")))
                 scroll = False
             except Exception:
-                if incr > 600: scroll = False
+                if incr > 700: scroll = False
                 incr += 100
 
         # get html honors
@@ -280,7 +280,7 @@ class ProfileLinkedin:
                 WebDriverWait(self.driver,1).until(EC.presence_of_element_located((By.XPATH,"//*[@class='pv-profile-section pv-accomplishments-block languages ember-view']")))
                 scroll = False
             except Exception:
-                if incr > 700: scroll = False
+                if incr > 800: scroll = False
                 incr += 100
 
         # get html languages
