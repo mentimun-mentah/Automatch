@@ -51,7 +51,7 @@ class ScrapingJobs:
             candidates = self.soup.find_all("h3",class_="topcard__flavor-row")[-1].figure.figcaption.text
 
         contents = self.soup.find("section",class_="description")
-        contents = contents.find("div",class_="description__text description__text--rich")
+        contents = contents.find("div",class_="show-more-less-html__markup show-more-less-html__markup--clamp-after-5")
         contents_text = contents.text.replace("•","").replace("\xa0\xa0\xa0"," ")
 
         ret = dict(
