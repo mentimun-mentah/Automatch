@@ -58,7 +58,7 @@ const DetailJob = ({ jobId, image, title_job, company, location, posted, content
       <section className="container mt-5">
         <Row>
           <Col lg={6}>
-            <div className="text-center">
+            <div className="text-center job-header">
               <Image src={image} thumbnail />
               <h5 className="mt-2 mb-1">{title_job}</h5>
               <span>{company}</span> • <span>{location} </span>
@@ -87,6 +87,9 @@ const DetailJob = ({ jobId, image, title_job, company, location, posted, content
         </Row>
       </section>
       <style jsx>{`
+        :global(.job-header > img) {
+          height: 110px;
+        }
         .job-content {
           height: 400px;
           overflow-y: scroll;
