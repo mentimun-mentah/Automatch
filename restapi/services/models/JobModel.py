@@ -11,7 +11,7 @@ class Jobs(db.Model):
     company = db.Column(db.String(100),nullable=False)
     location = db.Column(db.String(100),nullable=False)
     posted = db.Column(db.String(64),nullable=False)
-    candidates = db.Column(db.String(64),nullable=False)
+    candidates = db.Column(db.String(64),nullable=True)
     contents = db.Column(db.Text,nullable=False)
     contents_text = db.Column(db.Text,nullable=False)
     concepts = db.Column(db.Text,nullable=True)
