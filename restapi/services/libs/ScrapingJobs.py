@@ -68,4 +68,44 @@ class ScrapingJobs:
         return ret
 
     def scrape_urbanhire(self) -> Dict[str,str]:
-        pass
+        image = self.soup.find("div",class_="col-lg-2 col-md-2 col-sm-2 col-xs-12").img["src"]
+
+        raw_job_header = self.soup.find("div",class_="wrap container") \
+            .find("div",class_="col-lg-10 col-md-10 col-sm-10 col-xs-12")
+
+        title_job = raw_job_header.find_all("h1")[0].text
+
+        company = raw_job_header.find_all("a")[0].text
+        location = raw_job_header.find_all("a")[1].text
+        raw_posted = raw_job_header.find_all("div",class_="m-b-sm")[1]
+        posted = " ".join(raw_posted.find_all("span")[2].text.split(" ")[2:])
+
+        raw_contents = self.soup.find_all("div",class_="wrap container")[1].find("div",class_="col-xs-12 col-sm-8").div
+        raw_contents = raw_contents.find_all("article")[1:]
+        contents = ""
+        contents_text = ""
+        for index,content in enumerate(raw_contents):
+            try:
+                if index == 0:
+                    contents += "<h5>Description</h5>"
+                if index == 1:
+                    contents += "<h5>Requirement</h5>"
+                contents += str(content.div)
+                contents_text += str(content.div.text)
+            except Exception:
+                pass
+
+            if index == 1:
+                break
+
+        ret = dict(
+            image = image,
+            title_job = title_job,
+            company = company,
+            location = location,
+            posted = posted,
+            contents = contents,
+            contents_text = contents_text
+        )
+
+        return ret
