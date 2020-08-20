@@ -1,5 +1,22 @@
 version: "3.8"
 services: 
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:8080:80"
+    depends_on:
+      - frontend
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes: 
+      - "/app/node_modules"
+      - "/app/.next"
+      - "./frontend:/app"
   backend:
     build: 
       context: ./restapi
