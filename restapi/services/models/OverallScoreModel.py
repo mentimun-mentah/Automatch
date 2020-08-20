@@ -4,12 +4,12 @@ class OverallScore(db.Model):
     __tablename__ = 'overall_score'
 
     id = db.Column(db.Integer,primary_key=True)
-    score_experience = db.Column(db.Integer,default=25)
-    score_current_position = db.Column(db.Integer,default=20)
+    score_experience = db.Column(db.Integer,default=20)
+    score_current_position = db.Column(db.Integer,default=30)
     score_skill = db.Column(db.Integer,default=20)
     score_honor = db.Column(db.Integer,default=10)
     score_license = db.Column(db.Integer,default=10)
-    score_education = db.Column(db.Integer,default=15)
+    score_education = db.Column(db.Integer,default=10)
     priority_univ = db.Column(db.String(100),nullable=True)
 
     job_id = db.Column(db.Integer,db.ForeignKey('jobs.id'),nullable=False)
