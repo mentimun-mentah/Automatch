@@ -125,7 +125,9 @@ const Header = React.memo(() => {
               />
             </Link>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle aria-controls="basic-navbar-nav">
+            <i className={isTop ? "text-white far fa-bars" : "far fa-bars"} />
+          </Navbar.Toggle>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto align-items-center">
               <Link href="/" as="/">

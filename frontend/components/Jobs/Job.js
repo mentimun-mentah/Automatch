@@ -3,7 +3,7 @@ const Jobs = ({ value, change, submit, clearLink, children }) => {
     <>
       <section className="container-fluid bg-color-top">
         <div className="row justify-content-md-center">
-          <div className="col-5">
+          <div className="col-lg-5 col-md-5 col-12">
             <div className="card border-0 bg-transparent text-center mt-5">
               <div className="card-body">
                 <h2 className="font-weight-bold text-white">Job Link</h2>

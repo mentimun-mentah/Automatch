@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <section className="hero-section" id="home">
-        <h1 className="text-center text-white">
+        <h1 className="fs-26-s fs-34-m text-center text-white">
           Recruiting Workers is now Easier, Faster <br />
           and more Accurate
         </h1>
@@ -141,7 +141,7 @@ const Home = () => {
         <p className="text-center mb-5">
           Plans tailored for all business, built to scale with your needs
         </p>
-        <Row className="row-cols-5">
+        <Row className="row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
           <Pricing />
         </Row>
 
@@ -158,7 +158,7 @@ const Home = () => {
 
       <section className="container">
         <h2 className="font-weight-bold text-center mb-5">Detail Pricing</h2>
-        <Table borderless>
+        <Table borderless responsive>
           <thead>
             <tr className="text-center">
               <th scope="col"></th>
@@ -517,9 +517,15 @@ const Home = () => {
           .main-timeline5 .timeline:nth-child(4n) .timeline-content:before {
             background: #105572;
           }
-          @media only screen and (max-width: 1199px) {
-            .main-timeline5 .timeline {
-              margin-top: -103px;
+          @media only screen and (min-width: 767px) and (max-width: 1199px) {
+            .main-timeline5 .t1 {
+              margin-top: -101px !important;
+            }
+            .main-timeline5 .t2 {
+              margin-top: -101px !important;
+            }
+            .main-timeline5 .t3 {
+              margin-top: -77px !important;
             }
             .main-timeline5 .timeline-content:before {
               left: -18%;
@@ -537,6 +543,17 @@ const Home = () => {
             }
             .main-timeline5 .timeline:nth-child(2n) .timeline-content:before {
               right: -2%;
+            }
+          }
+          @media only screen and (min-width: 767px) and (max-width: 768px) {
+            .main-timeline5 .t1 {
+              margin-top: -137px !important;
+            }
+            .main-timeline5 .t2 {
+              margin-top: -149px !important;
+            }
+            .main-timeline5 .t3 {
+              margin-top: -113px !important;
             }
           }
           @media only screen and (max-width: 767px) {
@@ -602,4 +619,3 @@ const Home = () => {
 };
 
 export default Home;
-

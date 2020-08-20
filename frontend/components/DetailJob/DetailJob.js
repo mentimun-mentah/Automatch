@@ -79,7 +79,7 @@ const DetailJob = ({ jobId, image, title_job, company, location, posted, content
             {badgeLoading}
             {renderKeywords()}
           </Col>
-          <Col lg={6}>
+          <Col lg={6} className="m-t-20-m m-t-20-s mt-lg-0">
             <AnimatePresence exitBeforeEnter initial={false}>
               {children}
             </AnimatePresence>

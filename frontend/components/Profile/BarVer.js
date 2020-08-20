@@ -4,7 +4,7 @@ const BarVer = ({ jobSummary }) => {
   let label = [];
   let vJob = [];
   for (let [key, value] of Object.entries(jobSummary)) {
-    label.push(key);
+    label.push(key.slice(0,20));
     vJob.push(value);
   }
   const state = {

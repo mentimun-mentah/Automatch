@@ -31,8 +31,8 @@ const Dashboard = () => {
   return (
     <Container fluid>
       <Row className="mb-3">
-        <Col xl={3}>
-          <Card>
+        <Col xl={3} lg={3} md={6}>
+          <Card className="mb-2">
             <Card.Body>
               <Row>
                 <Col md={3} className="align-self-center">
@@ -40,10 +40,10 @@ const Dashboard = () => {
                     <i className="fas fa-users fa-3x"></i>
                   </div>
                 </Col>
-                <Col md={9} className="pl-4">
+                <Col md={9} className="pl-lg-4 p-l-0-s">
                   <div className="numbers pl-2">
-                    <div>
-                      <p className="card-category text-muted mb-1">
+                    <div className="text-center text-lg-left">
+                      <p className="card-category text-muted mb-1 text-truncate">
                         Total Applicants
                       </p>
                       <h4 className="card-title mb-0">{total_applicant}</h4>
@@ -55,8 +55,8 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        <Col xl={3}>
-          <Card>
+        <Col xl={3} lg={3} md={6}>
+          <Card className="mb-2">
             <Card.Body>
               <Row>
                 <Col md={3} className="align-self-center">
@@ -64,10 +64,10 @@ const Dashboard = () => {
                     <i className="fas fa-upload fa-3x"></i>
                   </div>
                 </Col>
-                <Col md={9} className="pl-4">
+                <Col md={9} className="pl-lg-4 p-l-0-s">
                   <div className="numbers pl-2">
-                    <div>
-                      <p className="card-category text-muted mb-1">
+                    <div className="text-center text-lg-left">
+                      <p className="card-category text-muted mb-1 text-truncate">
                         Published Jobs
                       </p>
                       <h4 className="card-title mb-0">{published_job}</h4>
@@ -79,8 +79,8 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        <Col xl={3}>
-          <Card>
+        <Col xl={3} lg={3} md={6}>
+          <Card className="mb-2">
             <Card.Body>
               <Row>
                 <Col md={3} className="align-self-center">
@@ -88,10 +88,10 @@ const Dashboard = () => {
                     <i className="fas fa-user-check fa-3x"></i>
                   </div>
                 </Col>
-                <Col md={9} className="pl-4">
+                <Col md={9} className="pl-lg-4 p-l-0-s">
                   <div className="numbers pl-2">
-                    <div>
-                      <p className="card-category text-muted mb-1">
+                    <div className="text-center text-lg-left">
+                      <p className="card-category text-muted mb-1 text-truncate">
                         Qualify Applicants
                       </p>
                       <h4 className="card-title mb-0">{qualify_applicant}</h4>
@@ -103,8 +103,8 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        <Col xl={3}>
-          <Card>
+        <Col xl={3} lg={3} md={6}>
+          <Card className="mb-2">
             <Card.Body>
               <Row>
                 <Col md={3} className="align-self-center">
@@ -112,10 +112,10 @@ const Dashboard = () => {
                     <i className="fas fa-user-times fa-3x"></i>
                   </div>
                 </Col>
-                <Col md={9} className="pl-4">
+                <Col md={9} className="pl-lg-4 p-l-0-s">
                   <div className="numbers pl-2">
-                    <div>
-                      <p className="card-category text-muted mb-1">
+                    <div className="text-center text-lg-left">
+                      <p className="card-category text-muted mb-1 text-truncate">
                         Disqualify Applicants
                       </p>
                       <h4 className="card-title mb-0">
@@ -131,7 +131,7 @@ const Dashboard = () => {
       </Row>
 
       <Row className="mb-3">
-        <Col md={8}>
+        <Col lg={8} md={12} sm={12} className="mb-3">
           <Card>
             <Card.Header className="bg-white">
               <Card.Title>
@@ -146,7 +146,7 @@ const Dashboard = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={4}>
+        <Col lg={4} md={12} sm={12}>
           <Card>
             <Card.Header className="bg-white">
               <Card.Title>

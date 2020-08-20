@@ -160,8 +160,8 @@ const Signin = (props) => {
         <Col className="mx-auto mt-1">
           <Form onSubmit={submitHandler}>
             <Form.Row>
-              <Row className="row-cols-2">
-                <Form.Group as={Col}>
+              <Row>
+                <Form.Group as={Col} xl={6} lg={6} md={12} sm={12}>
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     type="text"
@@ -176,7 +176,7 @@ const Signin = (props) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col}>
+                <Form.Group as={Col} xl={6} lg={6} md={12} sm={12}>
                   <Form.Label>Email Address</Form.Label>
                   <Form.Control
                     type="email"
@@ -191,7 +191,7 @@ const Signin = (props) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col}>
+                <Form.Group as={Col} xl={6} lg={6} md={12} sm={12}>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
@@ -206,7 +206,7 @@ const Signin = (props) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col}>
+                <Form.Group as={Col} xl={6} lg={6} md={12} sm={12}>
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
                     type="password"

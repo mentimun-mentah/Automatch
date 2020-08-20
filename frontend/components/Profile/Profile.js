@@ -291,7 +291,7 @@ const Profile = ({ image, imageHandler }) => {
   return (
     <Container fluid>
       <Row className="mt-4 justify-content-center">
-        <Col md={8}>
+        <Col lg={8} md={12}>
           <Card.Title>
             <h4>Profile Setting</h4>
           </Card.Title>
@@ -319,8 +319,8 @@ const Profile = ({ image, imageHandler }) => {
               </div>
 
               <Container className="pl-5 pr-5">
-                <Row className="row-cols-2 mt-4">
-                  <Form.Group as={Col}>
+                <Row className="row-cols-lg-2 mt-4">
+                  <Form.Group as={Col} lg={6} md={12} sm={12}>
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                       type="text"
@@ -334,7 +334,7 @@ const Profile = ({ image, imageHandler }) => {
                       <small className="form-text text-muted mt-0 mb-n2">{username.message}</small>
                     )}
                   </Form.Group>
-                  <Form.Group as={Col}>
+                  <Form.Group as={Col} lg={6} md={12} sm={12}>
                     <Form.Label>Company Name</Form.Label>
                     <Form.Control
                       type="text"
@@ -350,7 +350,7 @@ const Profile = ({ image, imageHandler }) => {
                       </small>
                     )}
                   </Form.Group>
-                  <Form.Group as={Col}>
+                  <Form.Group as={Col} lg={6} md={12} sm={12}>
                     <Form.Label>Position at Company</Form.Label>
                     <Form.Control
                       type="text"
@@ -364,7 +364,7 @@ const Profile = ({ image, imageHandler }) => {
                       <small className="form-text text-muted mt-0 mb-n2">{position.message}</small>
                     )}
                   </Form.Group>
-                  <Form.Group as={Col}>
+                  <Form.Group as={Col} lg={6} md={12} sm={12}>
                     <Form.Label>Company Site</Form.Label>
                     <Form.Control
                       type="text"
@@ -395,14 +395,14 @@ const Profile = ({ image, imageHandler }) => {
       </Row>
 
       <Row className="mt-4 justify-content-center mb-4">
-        <Col md={8}>
+        <Col lg={8} md={12}>
           <Card.Title>
             <h4>Update Password</h4>
           </Card.Title>
           <Card className="pt-4">
             <Card.Body className="pt-0">
               <Container className="pl-5 pr-5">
-                <Form.Group controlId="formGridCurrent">
+                <Form.Group >
                   <Form.Label>Current Password</Form.Label>
                   <Form.Control
                     type="password"
@@ -416,8 +416,8 @@ const Profile = ({ image, imageHandler }) => {
                     <small className="form-text text-muted mt-0 mb-n2">{password.message}</small>
                   )}
                 </Form.Group>
-                <Row className="row-cols-2 mt-4">
-                  <Form.Group as={Col} controlId="formGridNew">
+                <Row className="row-cols-lg-2 mt-4">
+                  <Form.Group as={Col} lg={6} md={12} sm={12}>
                     <Form.Label>New Password</Form.Label>
                     <Form.Control
                       type="password"
@@ -433,7 +433,7 @@ const Profile = ({ image, imageHandler }) => {
                       </small>
                     )}
                   </Form.Group>
-                  <Form.Group as={Col} controlId="formGridConfirm">
+                  <Form.Group as={Col} lg={6} md={12} sm={12}>
                     <Form.Label>Confirm New Password</Form.Label>
                     <Form.Control
                       type="password"

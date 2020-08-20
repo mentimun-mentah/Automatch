@@ -90,7 +90,7 @@ export const JobsContainer = () => {
   let jobCard = <EmptyCard />;
   if (jobs !== null && jobs.jobs !== undefined && jobs.jobs.length > 0) {
     jobCard = (
-      <div className="row row-cols-5">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
         {jobs.jobs.map((job, i) => {
           const { id, image, company, location, title_job, posted } = job;
           return (

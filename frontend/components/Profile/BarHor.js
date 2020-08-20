@@ -4,7 +4,7 @@ const BarHor = ({ lengthOfWork }) => {
   let label = [];
   let vLength = [];
   for (let [key, value] of Object.entries(lengthOfWork)) {
-    label.push(key);
+    label.push(key.slice(0,20));
     vLength.push(value);
   }
   const state = {

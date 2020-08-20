@@ -29,6 +29,7 @@ const App = ({ Component, pageProps, store }) => {
         <link rel="icon" href="/static/images/pricing-image/free.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="/static/fontawesome/css/all.css" />
+        <link rel="stylesheet" href="/static/css/utility.css" />
         <link
           rel="stylesheet"
           href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css"

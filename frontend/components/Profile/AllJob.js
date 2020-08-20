@@ -63,10 +63,10 @@ const AllJobs = () => {
         <Card.Header className="bg-white border-0 pb-0 pt-4">
           <form>
             <div className="form-row">
-              <div className="col-9">
+              <div className="col-lg-9">
                 <h4 className="card-title">All Jobs</h4>
               </div>
-              <div className="col">
+              <div className="col col-sm-auto">
                 <div className="input-group">
                   <input
                     type="text"
@@ -87,14 +87,14 @@ const AllJobs = () => {
         </Card.Header>
         <Card.Body>
           <div className="table-scroll">
-            <Table borderless>
+            <Table borderless responsive>
               <AnimatePresence exitBeforeEnter>
                 <tbody>{jobsData}</tbody>
               </AnimatePresence>
             </Table>
           </div>
           {iter_pages.length > 1 && (
-            <Pagination>
+            <Pagination className="mt-3">
               <Pagination.Prev onClick={prevHandler} disabled={prev_num === null}>
                 Previous
               </Pagination.Prev>

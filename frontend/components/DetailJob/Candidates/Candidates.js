@@ -105,12 +105,12 @@ const Candidates = ({ submit, change, value, children, validLink, jobId }) => {
       variants={LeftToRight}
     >
       <div className="row mb-3 mt-3 align-items-md-center">
-        <div className="col">
+        <div className="col-12 col-lg-6 col-md-6 col-sm-6">
           <h2>Candidates : </h2>
         </div>
-        <div className="col">
+        <div className="col col-lg-6 col-md-12 col-sm-6">
           <div className="row align-items-center">
-            <div className="col-3">Search</div>
+            <div className="col col-auto">Search</div>
             <div className="col">
               <input
                 className="form-control form-control-sm"

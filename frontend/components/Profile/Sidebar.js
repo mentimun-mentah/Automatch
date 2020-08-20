@@ -43,8 +43,8 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="d-flex" id="wrapper">
-      <div className="border-right col-2" id="sidebar-wrapper">
-        <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+      <div className="border-right col-3 d-none d-sm-none d-md-block d-lg-block col-lg-2" id="sidebar-wrapper">
+        <nav className="col-3 col-lg-2 d-md-block bg-light sidebar">
           <div className="sidebar-sticky pt-0 pl-3 pr-3">
             <div className="sidebar-heading">
               <img src="/static/images/logo-navbar-white.png" className="rounded d-block mx-auto" width="130" height="35" alt="automatch" />
@@ -76,6 +76,17 @@ const Sidebar = ({ children }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
+              <Link href="/" as="/">
+                <a className="nav-link text-decoration-none d-sm-block d-lg-none d-xl-none d-md-none">Home</a>
+              </Link>
+              <li className="nav-item">
+                <a className="nav-link text-decoration-none d-sm-block d-lg-none d-xl-none d-md-none" href="/profile/dashboard">Dashboard</a>
+              </li>
+              <li className="nav-item">
+                <Link href="/profile/[user]" as={`/profile/${user.username}`}>
+                  <a className="nav-link text-decoration-none d-sm-block d-lg-none d-xl-none d-md-none">User Profile</a>
+                </Link>
+              </li>
               <NavDropdown title={user.username} alignRight>
                 <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
               </NavDropdown>
@@ -120,7 +131,7 @@ const Sidebar = ({ children }) => {
         }
 
         #page-content-wrapper {
-          min-width: 100vw;
+          min-width: 100%;
         }
 
         #wrapper.toggled #sidebar-wrapper {
