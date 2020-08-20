@@ -14,4 +14,4 @@ class Development(Config):
     DEBUG = True
 
 class Production(Config):
-    DEBUG = False
+    PROPAGATE_EXCEPTIONS = True

@@ -30,25 +30,23 @@ class ScrapingJobs:
             return self.scrape_urbanhire()
 
     def scrape_linkedin(self) -> Dict[str,str]:
+        top_content = self.soup.find("main",class_="main")
+
         try:
-            image = self.soup.find("section",class_="topcard").a.img['data-delayed-url'].replace("&amp;","")
+            image = top_content.find("img")['data-delayed-url'].replace("&amp;","")
         except Exception:
             image = ""
 
-        title_job = self.soup.find("h1",class_="topcard__title").text
+        title_job = top_content.find("h2",class_="topcard__title").text
 
         try:
-            company = self.soup.find("h3",class_="topcard__flavor-row").a.text
+            company = top_content.find("h3",class_="topcard__flavor-row").a.text
         except Exception:
-            company = self.soup.find("h3",class_="topcard__flavor-row").span.text
+            company = top_content.find("h3",class_="topcard__flavor-row").span.text
 
-        location = self.soup.find("span",class_="topcard__flavor topcard__flavor--bullet").text
-        raw_posted_applicant = self.soup.find_all("h3",class_="topcard__flavor-row")[1]
+        location = top_content.find("span",class_="topcard__flavor topcard__flavor--bullet").text
+        raw_posted_applicant = top_content.find_all("h3",class_="topcard__flavor-row")[1]
         posted = raw_posted_applicant.find_all("span")[0].text
-        candidates = raw_posted_applicant.find_all("span")[1].text
-
-        if not candidates:
-            candidates = self.soup.find_all("h3",class_="topcard__flavor-row")[-1].figure.figcaption.text
 
         contents = self.soup.find("section",class_="description")
         contents = contents.find("div",class_="show-more-less-html__markup show-more-less-html__markup--clamp-after-5")
@@ -60,7 +58,6 @@ class ScrapingJobs:
             company = company,
             location = location,
             posted = posted,
-            candidates = candidates,
             contents = str(contents).replace("\xa0\xa0\xa0"," "),
             contents_text = contents_text
         )

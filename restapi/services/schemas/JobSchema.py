@@ -10,7 +10,6 @@ class JobSchema(Schema):
     company = fields.Str()
     location = fields.Str()
     posted = fields.Str()
-    candidates = fields.Str()
     contents = fields.Str()
     contents_text = fields.Str()
 

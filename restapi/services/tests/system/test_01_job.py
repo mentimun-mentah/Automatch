@@ -63,14 +63,20 @@ class JobTest(BaseTest):
             self.assertEqual(res.status_code,400)
             self.assertEqual('Upps invalid url job portal.',json.loads(res.data)['message'])
 
-    def test_02_scraping_linkedin(self):
-        for _ in range(2):
-            with self.app() as client:
-                res = client.post('/scrape-job',
-                    json={"url_job":"https://www.linkedin.com/jobs/view/1806664168/?alternateChannel=search"},
-                    headers={"Authorization":f"Bearer {self.ACCESS_TOKEN}"})
-                self.assertEqual(res.status_code,201)
-                self.assertEqual('Job successfully added.',json.loads(res.data)['message'])
+    def test_02_scraping_linkedin_and_urbanhire(self):
+        with self.app() as client:
+            res = client.post('/scrape-job',
+                json={"url_job":"https://www.linkedin.com/jobs/view/1806664168/?alternateChannel=search"},
+                headers={"Authorization":f"Bearer {self.ACCESS_TOKEN}"})
+            self.assertEqual(res.status_code,201)
+            self.assertEqual('Job successfully added.',json.loads(res.data)['message'])
+
+        with self.app() as client:
+            res = client.post('/scrape-job',
+                json={"url_job":"https://www.urbanhire.com/jobs/backend-engineer-bizhare-buw8"},
+                headers={"Authorization":f"Bearer {self.ACCESS_TOKEN}"})
+            self.assertEqual(res.status_code,201)
+            self.assertEqual('Job successfully added.',json.loads(res.data)['message'])
 
         # check limit job scraping for account free
         with self.app() as client:
