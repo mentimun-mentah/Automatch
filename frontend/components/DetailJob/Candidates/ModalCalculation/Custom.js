@@ -195,10 +195,10 @@ const customCalculation = ({ jobId, back, calculate }) => {
     <motion.div initial="initial" animate="in" exit="out" variants={Fade}>
       <Container>
         <Row className="justify-content-md-center">
-          <Col md={6}>
+          <Col lg={6} md={12}>
             <Form onSubmit={submitHandler}>
               <Form.Row>
-                <Form.Group as={Col} md="6">
+                <Form.Group as={Col} lg={6} md={12}>
                   <Form.Label>
                     Current Possition
                     <Form.Label className="text-danger">*</Form.Label>
@@ -206,7 +206,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   <Form.Control
                     name="score_current_position"
                     type="number"
-                    placeholder="20%"
+                    placeholder="30%"
                     className={currentInvalid}
                     value={score_current_position.value}
                     onChange={inputHandler}
@@ -218,7 +218,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col} md="6">
+                <Form.Group as={Col} lg={6} md={12}>
                   <Form.Label>
                     Experience
                     <Form.Label className="text-danger">*</Form.Label>
@@ -226,7 +226,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   <Form.Control
                     name="score_experience"
                     type="number"
-                    placeholder="25%"
+                    placeholder="20%"
                     className={experienceInvalid}
                     value={score_experience.value}
                     onChange={inputHandler}
@@ -238,7 +238,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col} md="6">
+                <Form.Group as={Col} lg={6} md={12}>
                   <Form.Label>
                     Skills
                     <Form.Label className="text-danger">*</Form.Label>
@@ -246,7 +246,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   <Form.Control
                     name="score_skill"
                     type="number"
-                    placeholder="10%"
+                    placeholder="20%"
                     className={skillInvalid}
                     value={score_skill.value}
                     onChange={inputHandler}
@@ -258,7 +258,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col} md="6">
+                <Form.Group as={Col} lg={6} md={12}>
                   <Form.Label>
                     Education
                     <Form.Label className="text-danger">*</Form.Label>
@@ -266,7 +266,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   <Form.Control
                     name="score_education"
                     type="number"
-                    placeholder="15%"
+                    placeholder="10%"
                     className={educationInvalid}
                     value={score_education.value}
                     onChange={inputHandler}
@@ -278,7 +278,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col} md="6">
+                <Form.Group as={Col} lg={6} md={12}>
                   <Form.Label>
                     Accomplishments
                     <Form.Label className="text-danger">*</Form.Label>
@@ -298,7 +298,7 @@ const customCalculation = ({ jobId, back, calculate }) => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col} md="6">
+                <Form.Group as={Col} lg={6} md={12}>
                   <Form.Label>
                     Licenses
                     <Form.Label className="text-danger">*</Form.Label>

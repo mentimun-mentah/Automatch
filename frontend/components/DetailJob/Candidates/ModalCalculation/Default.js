@@ -8,7 +8,7 @@ const defaultCalculation = ({ viewCustomCalc, calculate }) => {
     <motion.div initial="initial" animate="in" exit="out" variants={Fade}>
       <Container>
         <Row className="justify-content-md-center">
-          <Col md={6}>
+          <Col lg={6} md={12}>
             <h2 className={`${`text-center`} ${style.ff_yeseva}`}>
               Hi Recruiters.
             </h2>
@@ -22,8 +22,8 @@ const defaultCalculation = ({ viewCustomCalc, calculate }) => {
           </Col>
         </Row>
 
-        <Col md={6} className="mx-auto mt-1 text-center mb-4">
-          <Button variant="outline-danger" onClick={viewCustomCalc}>
+        <Col lg={6} md={12} className="mx-auto mt-1 text-center mb-4">
+          <Button variant="outline-danger" onClick={viewCustomCalc} className="mb-1">
             Costum calculation
           </Button>
           {"  "}

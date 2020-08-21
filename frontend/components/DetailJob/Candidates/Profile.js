@@ -96,6 +96,7 @@ const Profile = React.memo(
         animate="in"
         exit="out"
         variants={LeftToRight}
+        className="m-t-30-s"
       >
         <div className="job-header text-center">
           <img

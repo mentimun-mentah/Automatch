@@ -24,6 +24,8 @@ pdf.getInitialProps = async (ctx) => {
   const headerCfg = { headers: { Authorization: `Bearer ${access_token}` } };
   let res = await axios.get(`http://backend:5000/job/${jobId}`, headerCfg);
   ctx.store.dispatch(actions.getJobSuccess(res.data));
+  let resUser = await axios.get(`http://backend:5000/user`, headerCfg);
+  ctx.store.dispatch(actions.getUserSuccess(resUser.data));
   } catch (err) {
     console.log("export catch => ", err.response)
   }

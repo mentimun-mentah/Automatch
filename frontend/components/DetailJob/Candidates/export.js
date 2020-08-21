@@ -72,16 +72,16 @@ class Pdf extends Component {
           className="mt-5 border-bottom w-80"
           ref={(container) => (this.container = container)}
         >
-          <Row className="pt-3">
-            <Col md={1} className="pl-0">
+          <Row className="pt-3 justify-content-between">
+            <Col className="pl-lg-0 pl-sm-2 col-auto">
               <img src={this.props.job.image} width="80" height="80" />
             </Col>
-            <Col className="pl-0" md={8}>
+            <Col className="pl-lg-0 pl-sm-2">
               <h3 className="mb-0">{this.props.job.company}</h3>
               <p className="mb-0">{this.props.job.title_job}</p>
               <p>{this.props.job.location}</p>
             </Col>
-            <Col className="pr-0">
+              <Col className="pr-0 offset-lg-5">
               <table className="table table-borderless table-sm mb-0">
                 <tbody>
                   <tr>
@@ -117,7 +117,7 @@ class Pdf extends Component {
             </Table>
           </Row>
         </Container>
-        <Container className="mt-5 pl-0">
+        <Container className="mt-5">
           <Button
             variant="outline-dark"
             onClick={this.exportPDFWithMethod}
