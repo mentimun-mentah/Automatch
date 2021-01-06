@@ -12,7 +12,7 @@
     "@popperjs/core": "^2.4.0",
     "@progress/kendo-drawing": "^1.7.0",
     "@progress/kendo-react-pdf": "^3.13.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
