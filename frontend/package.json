@@ -14,7 +14,7 @@
     "@progress/kendo-react-pdf": "^3.13.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "classnames": "^2.2.6",
     "cookie-parser": "^1.4.5",
     "enzyme": "^3.11.0",
